@@ -1,0 +1,3 @@
+/media/psf/Home/projects/socker/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/psf/Home/projects/socker/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/media/psf/Home/projects/socker/cmake-build-debug/CMakeFiles/socker.dir
