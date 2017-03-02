@@ -13,23 +13,13 @@ stdio.h
 -
 string.h
 -
-fcntl.h
--
-sys/stat.h
--
-sys/types.h
--
-unistd.h
--
-rasocket.h
-/media/psf/Home/projects/socker/rasocket.h
 sys/un.h
 -
 assert.h
 -
-errno.h
--
-error.h
+rasocket.h
+/media/psf/Home/projects/socker/rasocket.h
+unistd.h
 -
 
 /media/psf/Home/projects/socker/connect.h
@@ -65,7 +55,7 @@ sys/param.h
 -
 
 /media/psf/Home/projects/socker/socker.cpp
-cstdlib
+stdlib.h
 -
 connect.h
 /media/psf/Home/projects/socker/connect.h

@@ -71,4 +71,26 @@ void bzero(char *,int);
 #else
 #define SOCKET_FAILED -1
 #define CONNECT_FAILED -1
+/**
+ * this is a bit tricky - confusion doubtless caused by my out-of-date experience.
+ *
+ * the intention is to be able to build with a C compiler (outside of CLion)
+ * as well as the latest and greatest C++ in CLion.
+ * Our standard build is with c++ 11.  The built-in manifest constant for
+ * c++11 is #define __STDC_VERSION__  201112L.  The condition __STDC_VERSION__ < 201112L is sufficient
+ * to allow us to build with C99, However CLion build does not seem to respect this condition (a mystery)
+ * so we have to add a check for the definition of __STDC_VERSION__.  To build
+ * without any standard we include a check for __GNUC_GNU_INLINE__.
+ * Using the more intuitive __STRICT_ANSI__ did not work for the CLion c++11 build
+ * The fact that CLion thinks the section below is active but the compiler treats it
+ * (correctly) as in active is a bit disturbing.
+ */
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ < 201112L || defined(__GNUC_GNU_INLINE__)
+typedef int bool;
+#define true 1
+#define false 0
+#endif
+
+
+
 #endif

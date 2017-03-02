@@ -14,8 +14,24 @@ static SOCKET sd;
 #define BUFFER_SIZE (ssize_t)256
 #define ADDRESS_SIZE 108
 #define DEFAULT_PORT 80
+#define ARG_ACTION 1
+#define ARG_REMOTE_HOST 2
+#define ARG_PORT 3
 
-int connect(int argc, char **argv)
+bool sconnect_usage(int argc, char **argv)
+{
+    if(argc > ARG_ACTION)
+    {
+        if(strcmp(argv[ARG_ACTION],"sconnect") != 0)
+        {
+            printf("usage : %s <action> <machinename> <portno>\n\te.g. %s sconnect localhost 80\n",argv[0], argv[0]);
+            return false;
+        }
+    }
+    return true;
+}
+
+int sconnect(int argc, char **argv)
 {
     struct hostent * server;
     struct sockaddr_in them;
@@ -24,20 +40,12 @@ int connect(int argc, char **argv)
     char buffer[BUFFER_SIZE];
 
     strcpy(machine,"");
-    if(argc > 1)
-    {
-        if(!(strcmp(argv[1],"-usage")))
-        {
-            printf("usage : %s <machinename> <portno>\n\te.g. %s localhost 80\n",argv[0], argv[0]);
-            exit(1);
-        }
-        else if (argc > 1) {
-            strcpy(machine,argv[1]);
-        }
+    if (argc > ARG_REMOTE_HOST) {
+        strcpy(machine,argv[ARG_REMOTE_HOST]);
     }
 
-    if(argc == 3)
-        port = atoi(argv[2]);
+    if(argc > ARG_PORT)
+        port = atoi(argv[ARG_PORT]);
 
     if((sd = socket(AF_INET,SOCK_STREAM,0)) == SOCKET_FAILED)
     {
@@ -55,7 +63,7 @@ int connect(int argc, char **argv)
     server = gethostbyname(machine);
     if(server == NULL) return false;
     memset(&them,0,sizeof(them));
-    memcpy((char *)&them.sin_addr,server->h_addr,(unsigned short)server->h_length);
+    memcpy((char *)&them.sin_addr,server->h_addr_list[0],(unsigned short)server->h_length);
     them.sin_family = AF_INET;
     them.sin_port = htons((unsigned short)port);
 
@@ -65,7 +73,7 @@ int connect(int argc, char **argv)
         return false;
     }
 
-    sprintf(buffer,"test message from socker's connect function");
+    sprintf(buffer,"test message from socker's sconnect function");
     ssize_t writeSoFar = 0;
     void * ptr = buffer;
 
