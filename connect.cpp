@@ -4,6 +4,7 @@
 #include <sys/un.h>
 #include <assert.h>
 #include "rasocket.h"
+#include "connect.h"
 
 #ifdef unix
 #define SOCKET int
@@ -18,20 +19,23 @@ static SOCKET sd;
 #define ARG_REMOTE_HOST 2
 #define ARG_PORT 3
 
-bool sconnect_usage(int argc, char **argv)
+bool sconnect_usage(int argc, char **argv, char * usage, size_t usageLen)
 {
+    usage[0] = '\0';
     if(argc > ARG_ACTION)
     {
-        if(strcmp(argv[ARG_ACTION],"sconnect") != 0)
+        if(strcmp(argv[ARG_ACTION],"connect") != 0)
         {
-            printf("usage : %s <action> <machinename> <portno>\n\te.g. %s sconnect localhost 80\n",argv[0], argv[0]);
+            char buffer[1024];
+            sprintf(buffer, "%s <action> <machinename> <portno>\n\te.g. %s sconnect localhost 80\n",argv[0], argv[0]);
+            strncpy(usage, buffer, usageLen);
             return false;
         }
     }
     return true;
 }
 
-int sconnect(int argc, char **argv)
+bool sconnect(int argc, char **argv)
 {
     struct hostent * server;
     struct sockaddr_in them;
