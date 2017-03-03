@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/socker.dir/socker.cpp.o"
   "CMakeFiles/socker.dir/connect.cpp.o"
+  "CMakeFiles/socker.dir/usage.cpp.o"
+  "CMakeFiles/socker.dir/bind.cpp.o"
   "socker.pdb"
   "socker"
 )

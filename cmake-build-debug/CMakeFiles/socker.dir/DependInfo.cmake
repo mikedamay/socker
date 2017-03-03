@@ -4,8 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/media/psf/Home/projects/socker/bind.cpp" "/media/psf/Home/projects/socker/cmake-build-debug/CMakeFiles/socker.dir/bind.cpp.o"
   "/media/psf/Home/projects/socker/connect.cpp" "/media/psf/Home/projects/socker/cmake-build-debug/CMakeFiles/socker.dir/connect.cpp.o"
   "/media/psf/Home/projects/socker/socker.cpp" "/media/psf/Home/projects/socker/cmake-build-debug/CMakeFiles/socker.dir/socker.cpp.o"
+  "/media/psf/Home/projects/socker/usage.cpp" "/media/psf/Home/projects/socker/cmake-build-debug/CMakeFiles/socker.dir/usage.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

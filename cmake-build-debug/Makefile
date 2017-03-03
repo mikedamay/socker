@@ -126,6 +126,33 @@ socker/fast:
 	$(MAKE) -f CMakeFiles/socker.dir/build.make CMakeFiles/socker.dir/build
 .PHONY : socker/fast
 
+bind.o: bind.cpp.o
+
+.PHONY : bind.o
+
+# target to build an object file
+bind.cpp.o:
+	$(MAKE) -f CMakeFiles/socker.dir/build.make CMakeFiles/socker.dir/bind.cpp.o
+.PHONY : bind.cpp.o
+
+bind.i: bind.cpp.i
+
+.PHONY : bind.i
+
+# target to preprocess a source file
+bind.cpp.i:
+	$(MAKE) -f CMakeFiles/socker.dir/build.make CMakeFiles/socker.dir/bind.cpp.i
+.PHONY : bind.cpp.i
+
+bind.s: bind.cpp.s
+
+.PHONY : bind.s
+
+# target to generate assembly for a file
+bind.cpp.s:
+	$(MAKE) -f CMakeFiles/socker.dir/build.make CMakeFiles/socker.dir/bind.cpp.s
+.PHONY : bind.cpp.s
+
 connect.o: connect.cpp.o
 
 .PHONY : connect.o
@@ -180,6 +207,33 @@ socker.cpp.s:
 	$(MAKE) -f CMakeFiles/socker.dir/build.make CMakeFiles/socker.dir/socker.cpp.s
 .PHONY : socker.cpp.s
 
+usage.o: usage.cpp.o
+
+.PHONY : usage.o
+
+# target to build an object file
+usage.cpp.o:
+	$(MAKE) -f CMakeFiles/socker.dir/build.make CMakeFiles/socker.dir/usage.cpp.o
+.PHONY : usage.cpp.o
+
+usage.i: usage.cpp.i
+
+.PHONY : usage.i
+
+# target to preprocess a source file
+usage.cpp.i:
+	$(MAKE) -f CMakeFiles/socker.dir/build.make CMakeFiles/socker.dir/usage.cpp.i
+.PHONY : usage.cpp.i
+
+usage.s: usage.cpp.s
+
+.PHONY : usage.s
+
+# target to generate assembly for a file
+usage.cpp.s:
+	$(MAKE) -f CMakeFiles/socker.dir/build.make CMakeFiles/socker.dir/usage.cpp.s
+.PHONY : usage.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -189,12 +243,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... socker"
+	@echo "... bind.o"
+	@echo "... bind.i"
+	@echo "... bind.s"
 	@echo "... connect.o"
 	@echo "... connect.i"
 	@echo "... connect.s"
 	@echo "... socker.o"
 	@echo "... socker.i"
 	@echo "... socker.s"
+	@echo "... usage.o"
+	@echo "... usage.i"
+	@echo "... usage.s"
 .PHONY : help
 
 

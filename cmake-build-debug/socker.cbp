@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/media/psf/Home/projects/socker/bind.cpp">
+			<Option target="socker"/>
+		</Unit>
+		<Unit filename="/media/psf/Home/projects/socker/bind.h">
+			<Option target="socker"/>
+		</Unit>
 		<Unit filename="/media/psf/Home/projects/socker/connect.cpp">
 			<Option target="socker"/>
 		</Unit>
@@ -90,6 +96,12 @@
 			<Option target="socker"/>
 		</Unit>
 		<Unit filename="/media/psf/Home/projects/socker/socker.cpp">
+			<Option target="socker"/>
+		</Unit>
+		<Unit filename="/media/psf/Home/projects/socker/usage.cpp">
+			<Option target="socker"/>
+		</Unit>
+		<Unit filename="/media/psf/Home/projects/socker/usage.h">
 			<Option target="socker"/>
 		</Unit>
 		<Unit filename="/media/psf/Home/projects/socker/CMakeLists.txt">

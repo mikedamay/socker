@@ -71,6 +71,8 @@ void bzero(char *,int);
 #else
 #define SOCKET_FAILED -1
 #define CONNECT_FAILED -1
+#define BIND_FAILED -1
+
 /**
  * this is a bit tricky - confusion doubtless caused by my out-of-date experience.
  *
@@ -82,8 +84,8 @@ void bzero(char *,int);
  * so we have to add a check for the definition of __STDC_VERSION__.  To build
  * without any standard we include a check for __GNUC_GNU_INLINE__.
  * Using the more intuitive __STRICT_ANSI__ did not work for the CLion c++11 build
- * The fact that CLion thinks the section below is active but the compiler treats it
- * (correctly) as in active is a bit disturbing.
+ * The fact that CLion sometimes thinks the section below is active but the compiler treats it
+ * (correctly) as inactive is a bit disturbing.
  */
 #if defined(__STDC_VERSION__) && __STDC_VERSION__ < 201112L || defined(__GNUC_GNU_INLINE__)
 typedef int bool;
@@ -91,6 +93,16 @@ typedef int bool;
 #define false 0
 #endif
 
+#ifdef unix
+#define SOCKET int
+#include <unistd.h>
+#endif
+
+#define ADDRESS_SIZE 108
+#define DEFAULT_PORT 80
+#define ARG_ACTION 1
+#define ARG_REMOTE_HOST 2
+#define ARG_PORT 3
 
 
 #endif

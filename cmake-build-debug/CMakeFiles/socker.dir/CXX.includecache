@@ -6,6 +6,28 @@
 
 #IncludeRegexTransform: 
 
+/media/psf/Home/projects/socker/bind.cpp
+stdlib.h
+-
+stdio.h
+-
+string.h
+-
+sys/un.h
+-
+assert.h
+-
+rasocket.h
+/media/psf/Home/projects/socker/rasocket.h
+bind.h
+/media/psf/Home/projects/socker/bind.h
+usage.h
+/media/psf/Home/projects/socker/usage.h
+
+/media/psf/Home/projects/socker/bind.h
+stdlib.h
+-
+
 /media/psf/Home/projects/socker/connect.cpp
 stdlib.h
 -
@@ -19,8 +41,10 @@ assert.h
 -
 rasocket.h
 /media/psf/Home/projects/socker/rasocket.h
-unistd.h
--
+connect.h
+/media/psf/Home/projects/socker/connect.h
+usage.h
+/media/psf/Home/projects/socker/usage.h
 
 /media/psf/Home/projects/socker/connect.h
 
@@ -53,10 +77,34 @@ net/if.h
 -
 sys/param.h
 -
+unistd.h
+-
 
 /media/psf/Home/projects/socker/socker.cpp
 stdlib.h
 -
+stdio.h
+-
+string.h
+-
+assert.h
+-
+rasocket.h
+/media/psf/Home/projects/socker/rasocket.h
 connect.h
 /media/psf/Home/projects/socker/connect.h
+bind.h
+/media/psf/Home/projects/socker/bind.h
+
+/media/psf/Home/projects/socker/usage.cpp
+string.h
+-
+stdio.h
+-
+rasocket.h
+/media/psf/Home/projects/socker/rasocket.h
+usage.h
+/media/psf/Home/projects/socker/usage.h
+
+/media/psf/Home/projects/socker/usage.h
 
