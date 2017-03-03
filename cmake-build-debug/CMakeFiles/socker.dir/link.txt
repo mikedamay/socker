@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/socker.dir/socker.cpp.o CMakeFiles/socker.dir/connect.cpp.o CMakeFiles/socker.dir/usage.cpp.o CMakeFiles/socker.dir/bind.cpp.o  -o socker 
