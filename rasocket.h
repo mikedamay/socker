@@ -15,7 +15,7 @@
 #include <windows.h>
 #endif
 #endif
-#if defined (_WINDOWS) || defined (_WIN32)
+#if defined (_WIN32)
 #include <winsock.h>
 #include <io.h>
 #define MAXHOSTNAMELEN 80
@@ -27,7 +27,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #endif
-#if !defined (SUNOS41) && !defined (_WINDOWS) && !defined (_WIN32) && !defined (AIX)
+#if !defined (SUNOS41) && !defined (_WIN32) && !defined (AIX)
 #include <sys/socketvar.h>
 #endif
 // system call function prototypes
@@ -48,7 +48,7 @@ int recvfrom(int,char*,int,int,struct sockaddr*,int*);
 void bzero(char *,int);
 }
 #endif
-#if !defined (_WIN32) && !defined (_WINDOWS)
+#if !defined (_WIN32)
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/time.h>
@@ -58,16 +58,19 @@ void bzero(char *,int);
 #endif
 #include <net/if.h>
 #endif
-#if !defined (ALPHA) && !defined (_WIN32) && !defined (_WINDOWS) && !defined (AIX)
+#if !defined (ALPHA) && !defined (_WIN32) && !defined (AIX)
 //#include <sys/filio.h>
 #endif
-#if !defined (_WINDOWS) && !defined (_WIN32)
+#if !defined (_WIN32)
 #include <sys/param.h>
 #endif
 #endif
-#if defined (_WINDOWS)
+#if defined (_WIN32)
 #define SOCKET_FAILED INVALID_SOCKET
 #define CONNECT_FAILED SOCKET_ERROR
+#define BIND_FAILED SOCKET_ERROR
+typedef long int ssize_t;
+#define write _write
 #else
 #define SOCKET_FAILED -1
 #define CONNECT_FAILED -1
@@ -97,12 +100,10 @@ typedef int bool;
 #define SOCKET int
 #include <unistd.h>
 #endif
+#endif
 
 #define ADDRESS_SIZE 108
 #define DEFAULT_PORT 80
 #define ARG_ACTION 1
 #define ARG_REMOTE_HOST 2
 #define ARG_PORT 3
-
-
-#endif

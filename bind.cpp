@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#if !defined(WIN32) 
 #include <sys/un.h>
+#endif
 #include <assert.h>
 #include "rasocket.h"
 #include "bind.h"
@@ -40,5 +42,8 @@ bool sbind(const char * host, unsigned short port)
         perror(NULL);
         return false;
     }
-    sleep(30);
+	struct timeval tv;
+	tv.tv_sec = 30;
+	tv.tv_usec = 0;
+    select(0, NULL, NULL, NULL, &tv);
 }
