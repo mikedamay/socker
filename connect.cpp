@@ -3,6 +3,7 @@
 #include <string.h>
 #if !defined(WIN32) 
 #include <sys/un.h>
+#define IOCTL_NUM int
 #endif
 #include <assert.h>
 #include "rasocket.h"
@@ -34,9 +35,17 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
     struct sockaddr_in them;
     char buffer[BUFFER_SIZE];
 
+	int iResult;
+	WSAData wsaData = { 0 };
+	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (iResult != 0) {
+		printError("socker:connect() WSAStartup failed");
+		return false;
+	}
+
     if((sd = socket(AF_INET,SOCK_STREAM,0)) == SOCKET_FAILED)
     {
-        perror(NULL);
+		printError(NULL);
         return false;
     }
 
@@ -50,7 +59,7 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
 
     if((connect(sd,(struct sockaddr *)&them,sizeof(them))) == CONNECT_FAILED)
     {
-        perror(NULL);
+		printError(NULL);
         return false;
     }
 
@@ -63,9 +72,9 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
         ssize_t writeC = 0;
 
         assert( writeSoFar < BUFFER_SIZE);
-        if((writeC = write(sd,ptr,(size_t)(BUFFER_SIZE - writeSoFar))) == -1)
+        if((writeC = send(sd,(const char *)ptr,(size_t)(BUFFER_SIZE - writeSoFar), 0)) == -1)
         {
-            perror("write failed:");
+			printError("write failed:");
             return false;
         }
         writeSoFar = writeSoFar + writeC;
@@ -77,10 +86,10 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
     ssize_t numBytes;
     do
     {
-        numBytes = read(sd, buffer2, sizeof(buffer2));
+        numBytes = recv(sd, buffer2, sizeof(buffer2), 0);
         if (numBytes == -1)
         {
-            perror("socker:connect() read failed:");
+			printError("socker:connect() read failed:");
             break;
         }
         else if (numBytes > 0)
@@ -93,10 +102,10 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
         {
             printf("socker:connect() read of zero bytes performed\n");
         }
-        int availableBytes;
+        ioctl_byte_count_t availableBytes;
         if (ioctl(sd, FIONREAD, &availableBytes) != 0)
         {
-            perror("socker:connect() ioctl failed:");
+			printError("socker:connect() ioctl failed:");
             break;
         }
         else
@@ -108,7 +117,7 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
         }
     }
     while (true);
-    int res = shutdown(sd, SHUT_RDWR);
+    //int res = shutdown(sd, SHUT_RDWR);
     close(sd);
     return true;
 }

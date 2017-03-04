@@ -71,10 +71,16 @@ void bzero(char *,int);
 #define BIND_FAILED SOCKET_ERROR
 typedef long int ssize_t;
 #define write _write
+#define read _read
+#define ioctl ioctlsocket
+#define close closesocket
+typedef unsigned long ioctl_byte_count_t;
+#define printError(s) (s == NULL ? printf("error %d", WSAGetLastError()) : printf("%s %d", (char *)s, WSAGetLastError()))
 #else
 #define SOCKET_FAILED -1
 #define CONNECT_FAILED -1
 #define BIND_FAILED -1
+typedef int ioctl_byte_count_t;
 
 /**
  * this is a bit tricky - confusion doubtless caused by my out-of-date experience.

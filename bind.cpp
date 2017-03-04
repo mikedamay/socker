@@ -30,36 +30,45 @@ bool sbind_usage(int argc, char **argv, char * usageStr, size_t usageLen)
 
 bool sbind(const char * host, unsigned short port)
 {
-    if ((sd = socket(AF_INET, SOCK_STREAM, 0)) == SOCKET_FAILED)
-    {
-        perror(NULL);
-        return false;
-    }
-    printf("socker:bind() socket created\n");
-    struct hostent * server = gethostbyname(host);
-    if (server == NULL)
-    {
-        perror(NULL);
-        return false;
-    }
-    struct sockaddr_in sin;
-    sin.sin_family = AF_INET;
-    sin.sin_port = htons(port);
-    memcpy(&sin.sin_addr.s_addr, server->h_addr_list[0], (unsigned short)server->h_length);
-    memset(&sin.sin_zero, 0, sizeof sin.sin_zero);
-    printf("socker:bind() about to bind on port\n" );
-    if ( bind(sd, (struct sockaddr *)&sin, sizeof (struct sockaddr_in)) == BIND_FAILED)
-    {
-        perror(NULL);
-        return false;
-    }
+	int iResult;
+	WSAData wsaData = { 0 };
+	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (iResult != 0) {
+		printError("socker:bind() WSAStartup failed");
+		return false;
+	}
+
+	if ((sd = socket(AF_INET, SOCK_STREAM, 0)) == SOCKET_FAILED)
+	{
+		printError(NULL);
+		return false;
+	}
+	printf("socker:bind() socket created\n");
+	struct hostent * server = gethostbyname(host);
+	if (server == NULL)
+	{
+		printError(NULL);
+		return false;
+	}
+	struct sockaddr_in sin;
+	sin.sin_family = AF_INET;
+	sin.sin_port = htons(port);
+	memcpy(&sin.sin_addr.s_addr, server->h_addr_list[0], (unsigned short)server->h_length);
+	memset(&sin.sin_zero, 0, sizeof sin.sin_zero);
+	printf("socker:bind() about to bind on port\n");
+	if (bind(sd, (struct sockaddr *)&sin, sizeof(struct sockaddr_in)) == BIND_FAILED)
+	{
+		printError(NULL);
+		return false;
+	}
+
     // listen for connections and echo messages back to the peer
     while (true)
     {
         printf("socket:bind()  about to call listen()\n");
         if (listen(sd, 10) == SOCKET_FAILED)
         {
-            perror("listen failed:");
+			printError("listen failed:");
             return false;
         }
         else
@@ -68,7 +77,7 @@ bool sbind(const char * host, unsigned short port)
             printf("socker:bind() about to call accept()\n");
             if ((sd2 = accept(sd, NULL, NULL)) == SOCKET_FAILED)
             {
-                perror("accept failed:");
+				printError("accept failed:");
                 return false;
             }
             char buffer[1024];
@@ -76,10 +85,10 @@ bool sbind(const char * host, unsigned short port)
             ssize_t numBytes;
             do
             {
-                numBytes = read(sd2, buffer, sizeof(buffer));
+                numBytes = recv(sd2, buffer, sizeof(buffer), 0);
                 if (numBytes == -1)
                 {
-                    perror("socker:bind() read failed:");
+					printError("socker:bind() read failed:");
                     break;
                 }
                 else if (numBytes > 0)
@@ -87,12 +96,12 @@ bool sbind(const char * host, unsigned short port)
                     printf("socker:bind() about to print buffer\n");
                     printf(buffer);
                     printf("\n");
-                    write(sd2, buffer, sizeof buffer);
+                    send(sd2, buffer, sizeof buffer, 0);
                 }
                 else
                 {
                     printf("socker:bind() read of zero bytes performed\n");
-                    perror("socker:bind() zero bytes read error:");
+					printError("socker:bind() zero bytes read error:");
                     break;
                 }
             }
