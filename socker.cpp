@@ -5,9 +5,8 @@
 
 
  To build from command line
- /usr/bin/gcc -x c -Dunix -c socker.cpp usage.cpp connect.cpp bind.cpp
- /usr/bin/gcc -g socker.o -o socker
- noticeably the link line does not work if the files are suffixed .c (rather than .cpp)
+ /usr/bin/gcc -g -x c *.cpp -o socker
+  noticeably the link line does not work if the files are suffixed .c (rather than .cpp)
  linker errors are undefined reference to sbind_usage and sbind.
  using nm on the .o files did not indicate the root cause.
  I assume that gcc behaves differently with .cpp vs. .c at the linker stage
@@ -36,6 +35,7 @@ int main(int argc, char **argv)
     unsigned short port = 0;
     char machine[ADDRESS_SIZE];
 
+    WINSOCK_START
     strcpy(machine,"");
     if (argc > ARG_REMOTE_HOST) {
         strcpy(machine,argv[ARG_REMOTE_HOST]);

@@ -76,11 +76,23 @@ typedef long int ssize_t;
 #define close closesocket
 typedef unsigned long ioctl_byte_count_t;
 #define printError(s) (s == NULL ? printf("error %d", WSAGetLastError()) : printf("%s %d", (char *)s, WSAGetLastError()))
+#define WINSOCK_START \
+int iResult; \
+WSAData wsaData = { 0 }; \
+iResult = WSAStartup(MAKEWORD(2, 2), &wsaData); \
+if (iResult != 0) { \
+printError("socker:connect() WSAStartup failed"); \
+return false; \
+}
+
 #else
 #define SOCKET_FAILED -1
 #define CONNECT_FAILED -1
 #define BIND_FAILED -1
 typedef int ioctl_byte_count_t;
+#define printError perror
+#define WINSOCK_START
+
 
 /**
  * this is a bit tricky - confusion doubtless caused by my out-of-date experience.

@@ -4,7 +4,6 @@
 #if !defined(WIN32) 
 #include <sys/un.h>
 #endif
-#include <assert.h>
 #include "rasocket.h"
 #include "bind.h"
 #include "usage.h"
@@ -30,14 +29,7 @@ bool sbind_usage(int argc, char **argv, char * usageStr, size_t usageLen)
 
 bool sbind(const char * host, unsigned short port)
 {
-	int iResult;
-	WSAData wsaData = { 0 };
-	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (iResult != 0) {
-		printError("socker:bind() WSAStartup failed");
-		return false;
-	}
-
+    WINSOCK_START
 	if ((sd = socket(AF_INET, SOCK_STREAM, 0)) == SOCKET_FAILED)
 	{
 		printError(NULL);

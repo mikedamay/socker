@@ -3,7 +3,6 @@
 #include <string.h>
 #if !defined(WIN32) 
 #include <sys/un.h>
-#define IOCTL_NUM int
 #endif
 #include <assert.h>
 #include "rasocket.h"
@@ -35,13 +34,7 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
     struct sockaddr_in them;
     char buffer[BUFFER_SIZE];
 
-	int iResult;
-	WSAData wsaData = { 0 };
-	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (iResult != 0) {
-		printError("socker:connect() WSAStartup failed");
-		return false;
-	}
+    WINSOCK_START
 
     if((sd = socket(AF_INET,SOCK_STREAM,0)) == SOCKET_FAILED)
     {
