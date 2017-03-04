@@ -52,8 +52,8 @@
       <file leaf-file-name="minimal.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/minimal.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+            <state relative-caret-position="666">
+              <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -405,7 +405,7 @@
       <workItem from="1488439889315" duration="16383000" />
       <workItem from="1488516161611" duration="16032000" />
       <workItem from="1488535104511" duration="9542000" />
-      <workItem from="1488605435312" duration="20558000" />
+      <workItem from="1488605435312" duration="21487000" />
     </task>
     <task id="LOCAL-00001" summary="tidying connect() code">
       <created>1488395244507</created>
@@ -456,11 +456,18 @@
       <option name="project" value="LOCAL" />
       <updated>1488631322280</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="tweaked minimal">
+      <created>1488632599515</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1488632599515</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67801000" />
+    <option name="totallyTimeSpent" value="68730000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="32" width="2048" height="1097" extended-state="6" />
@@ -499,7 +506,8 @@
     <MESSAGE value="progress bind (but not listen)" />
     <MESSAGE value="documentation" />
     <MESSAGE value="working quite well.  bind and connect complete, minimal added" />
-    <option name="LAST_COMMIT_MESSAGE" value="working quite well.  bind and connect complete, minimal added" />
+    <MESSAGE value="tweaked minimal" />
+    <option name="LAST_COMMIT_MESSAGE" value="tweaked minimal" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -760,8 +768,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/minimal.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="12" lean-forward="false" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+        <state relative-caret-position="666">
+          <caret line="37" column="1" lean-forward="true" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
           <folding />
         </state>
       </provider>
