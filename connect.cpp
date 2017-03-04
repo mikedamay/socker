@@ -34,8 +34,6 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
     struct sockaddr_in them;
     char buffer[BUFFER_SIZE];
 
-    WINSOCK_START
-
     if((sd = socket(AF_INET,SOCK_STREAM,0)) == SOCKET_FAILED)
     {
 		printError(NULL);

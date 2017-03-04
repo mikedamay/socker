@@ -29,7 +29,6 @@ bool sbind_usage(int argc, char **argv, char * usageStr, size_t usageLen)
 
 bool sbind(const char * host, unsigned short port)
 {
-    WINSOCK_START
 	if ((sd = socket(AF_INET, SOCK_STREAM, 0)) == SOCKET_FAILED)
 	{
 		printError(NULL);
