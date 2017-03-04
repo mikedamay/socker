@@ -12,6 +12,15 @@
 static SOCKET sd;
 #define BUFFER_SIZE (ssize_t)256
 
+static void ssleep(int seconds)
+{
+    struct timeval tv;
+    tv.tv_sec = seconds;
+    tv.tv_usec = 0;
+    select(0, NULL, NULL, NULL, &tv);
+
+}
+
 bool sconnect_usage(int argc, char **argv, char * usageStr, size_t usageLen)
 {
     return usage(argc, argv, (char *)"connect"
@@ -56,12 +65,51 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
         assert( writeSoFar < BUFFER_SIZE);
         if((writeC = write(sd,ptr,(size_t)(BUFFER_SIZE - writeSoFar))) == -1)
         {
+            perror("write failed:");
             return false;
         }
         writeSoFar = writeSoFar + writeC;
         ptr = (char *)ptr + writeC;
 
     }
+    char buffer2[1024];
+    printf("socker:bind() about to call read()\n");
+    ssize_t numBytes;
+    do
+    {
+        numBytes = read(sd, buffer2, sizeof(buffer2));
+        if (numBytes == -1)
+        {
+            perror("socker:connect() read failed:");
+            break;
+        }
+        else if (numBytes > 0)
+        {
+            printf("socker:connect() about to print buffer\n");
+            printf(buffer2);
+            printf("\n");
+        }
+        else
+        {
+            printf("socker:connect() read of zero bytes performed\n");
+        }
+        int availableBytes;
+        if (ioctl(sd, FIONREAD, &availableBytes) != 0)
+        {
+            perror("socker:connect() ioctl failed:");
+            break;
+        }
+        else
+        {
+            if (availableBytes == 0)
+            {
+                break;
+            }
+        }
+    }
+    while (true);
+    int res = shutdown(sd, SHUT_RDWR);
+    close(sd);
     return true;
 }
 
