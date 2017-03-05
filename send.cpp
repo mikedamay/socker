@@ -6,7 +6,7 @@
 #endif
 #include <assert.h>
 #include "rasocket.h"
-#include "connect.h"
+#include "send.h"
 #include "usage.h"
 
 static SOCKET sd;
@@ -21,14 +21,14 @@ static void ssleep(int seconds)
 
 }
 
-bool sconnect_usage(int argc, char **argv, char * usageStr, size_t usageLen)
+bool ssend_usage(int argc, char **argv, char *usageStr, size_t usageLen)
 {
     return usage(argc, argv, (char *)"connect"
       ,(char *)"socker <action> <machinename> <portno>\n\te.g. socker connect localhost 80\n"
       , usageStr, usageLen);
 }
 
-bool sconnect(char * remoteServer, unsigned short remotePort)
+bool ssend(char *remoteServer, unsigned short remotePort)
 {
     struct hostent * server;
     struct sockaddr_in them;
@@ -54,7 +54,7 @@ bool sconnect(char * remoteServer, unsigned short remotePort)
         return false;
     }
 
-    sprintf(buffer,"test message from socker's sconnect function");
+    sprintf(buffer,"test message from socker's ssend function");
     ssize_t writeSoFar = 0;
     void * ptr = buffer;
 

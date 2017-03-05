@@ -5,7 +5,7 @@
 #include <sys/un.h>
 #endif
 #include "rasocket.h"
-#include "bind.h"
+#include "echo.h"
 #include "usage.h"
 
 
@@ -20,14 +20,14 @@ static void ssleep(int seconds)
 
 static SOCKET sd;
 
-bool sbind_usage(int argc, char **argv, char * usageStr, size_t usageLen)
+bool secho_usage(int argc, char **argv, char *usageStr, size_t usageLen)
 {
-    return usage(argc, argv, (char *)"bind"
-      ,(char *)"socker <action> <machinename> <portno>\n\te.g. socker bind localhost 80\n"
+    return usage(argc, argv, (char *)"echo"
+      ,(char *)"socker <action> <machinename> <portno>\n\te.g. socker echo localhost 80\n"
       , usageStr, usageLen);
 }
 
-bool sbind(const char * host, unsigned short port)
+bool secho(const char *host, unsigned short port)
 {
 	if ((sd = socket(AF_INET, SOCK_STREAM, 0)) == SOCKET_FAILED)
 	{
