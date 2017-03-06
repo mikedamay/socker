@@ -11,13 +11,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39aa4289-7672-4b3f-834d-53d7885ef0c2" name="Default" comment="back ported to unix">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/bind.cpp" afterPath="$PROJECT_DIR$/echo.cpp" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/bind.h" afterPath="$PROJECT_DIR$/echo.h" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/connect.cpp" afterPath="$PROJECT_DIR$/send.cpp" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/connect.h" afterPath="$PROJECT_DIR$/send.h" />
+    <list default="true" id="39aa4289-7672-4b3f-834d-53d7885ef0c2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/proxy.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/proxy.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/utils.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rasocket.h" afterPath="$PROJECT_DIR$/rasocket.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/send.cpp" afterPath="$PROJECT_DIR$/send.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/socker.cpp" afterPath="$PROJECT_DIR$/socker.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -34,80 +36,13 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="send.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/send.cpp">
+      <file leaf-file-name="proxy.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/proxy.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+            <state relative-caret-position="954">
+              <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
               <folding>
-                <element signature="e#107#126#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="socker.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/socker.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
-              <caret line="69" column="27" lean-forward="false" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
-              <folding>
-                <element signature="e#741#760#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="echo.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/echo.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="25" column="74" lean-forward="false" selection-start-line="25" selection-start-column="74" selection-end-line="25" selection-end-column="74" />
-              <folding>
-                <element signature="e#107#128#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="send.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/send.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="echo.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/echo.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="10" lean-forward="false" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="81" lean-forward="false" selection-start-line="5" selection-start-column="81" selection-end-line="5" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rasocket.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rasocket.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1674">
-              <caret line="93" column="8" lean-forward="false" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
-              <folding>
-                <element signature="e#1551#2146#0" expanded="true" />
-                <element signature="e#3281#3329#0" expanded="true" />
+                <element signature="e#106#127#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -122,6 +57,7 @@
       <find>sin_</find>
       <find>gethost</find>
       <find>ssize_t</find>
+      <find>hostent</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/cmake-build-debug</dir>
@@ -143,13 +79,17 @@
         <option value="$PROJECT_DIR$/minimal.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/minimal.c" />
-        <option value="$PROJECT_DIR$/rasocket.h" />
-        <option value="$PROJECT_DIR$/socker.cpp" />
         <option value="$PROJECT_DIR$/connect.cpp" />
         <option value="$PROJECT_DIR$/bind.cpp" />
         <option value="$PROJECT_DIR$/echo.h" />
         <option value="$PROJECT_DIR$/echo.cpp" />
         <option value="$PROJECT_DIR$/send.h" />
+        <option value="$PROJECT_DIR$/utils.h" />
+        <option value="$PROJECT_DIR$/utils.cpp" />
+        <option value="$PROJECT_DIR$/proxy.h" />
+        <option value="$PROJECT_DIR$/rasocket.h" />
+        <option value="$PROJECT_DIR$/socker.cpp" />
+        <option value="$PROJECT_DIR$/proxy.cpp" />
       </list>
     </option>
   </component>
@@ -202,7 +142,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RunManager" selected="Application.echo">
+  <component name="RunManager" selected="Application.proxy">
     <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="socker" TARGET_NAME="socker" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
@@ -370,11 +310,15 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
+    <configuration default="false" name="proxy" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="proxy localhost 12900 localhost 11900" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="socker" TARGET_NAME="socker" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="socker" RUN_TARGET_NAME="socker">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="socker" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="connect localhost 11900" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="socker" TARGET_NAME="socker" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="socker" RUN_TARGET_NAME="socker">
+    <configuration default="false" name="connect" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="connect localhost 11900" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="socker" TARGET_NAME="socker" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="socker" RUN_TARGET_NAME="socker">
       <envs />
       <method />
     </configuration>
@@ -390,12 +334,13 @@
       <envs />
       <method />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
-      <item index="1" class="java.lang.String" itemvalue="Application.socker" />
-      <item index="2" class="java.lang.String" itemvalue="Application.fail_usage" />
-      <item index="3" class="java.lang.String" itemvalue="Application.echo" />
-      <item index="4" class="java.lang.String" itemvalue="Application.failed_socker" />
+    <list size="6">
+      <item index="0" class="java.lang.String" itemvalue="Application.proxy" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="2" class="java.lang.String" itemvalue="Application.connect" />
+      <item index="3" class="java.lang.String" itemvalue="Application.fail_usage" />
+      <item index="4" class="java.lang.String" itemvalue="Application.echo" />
+      <item index="5" class="java.lang.String" itemvalue="Application.failed_socker" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -413,7 +358,7 @@
       <workItem from="1488516161611" duration="16032000" />
       <workItem from="1488535104511" duration="9542000" />
       <workItem from="1488605435312" duration="24666000" />
-      <workItem from="1488703739205" duration="1572000" />
+      <workItem from="1488703739205" duration="9356000" />
     </task>
     <task id="LOCAL-00001" summary="tidying connect() code">
       <created>1488395244507</created>
@@ -478,11 +423,18 @@
       <option name="project" value="LOCAL" />
       <updated>1488633543312</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="renamed bind and connect">
+      <created>1488706042413</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1488706042413</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73481000" />
+    <option name="totallyTimeSpent" value="81265000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="32" width="2048" height="1097" extended-state="6" />
@@ -495,7 +447,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32820514" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923076" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33641025" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33641025" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -523,49 +475,19 @@
     <MESSAGE value="working quite well.  bind and connect complete, minimal added" />
     <MESSAGE value="tweaked minimal" />
     <MESSAGE value="back ported to unix" />
-    <option name="LAST_COMMIT_MESSAGE" value="back ported to unix" />
+    <MESSAGE value="renamed bind and connect" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed bind and connect" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="24" />
+      <option name="time" value="25" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/socker.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="27" column="58" lean-forward="true" selection-start-line="27" selection-start-column="58" selection-end-line="27" selection-end-column="58" />
-          <folding>
-            <element signature="e#741#760#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/echo.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#107#128#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/send.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="28" column="24" lean-forward="false" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
-          <folding>
-            <element signature="e#107#126#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.6.3/CompilerIdC/CMakeCCompilerId.c" />
@@ -638,6 +560,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="994">
           <caret line="205" column="16" lean-forward="true" selection-start-line="205" selection-start-column="16" selection-end-line="205" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -677,13 +600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/usage.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usage.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -696,6 +612,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="108" column="13" lean-forward="false" selection-start-line="108" selection-start-column="13" selection-end-line="108" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -724,6 +641,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
           <caret line="30" column="29" lean-forward="false" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -735,50 +653,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rasocket.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1674">
-          <caret line="93" column="8" lean-forward="false" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
-          <folding>
-            <element signature="e#1551#2146#0" expanded="true" />
-            <element signature="e#3281#3329#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/send.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
-          <folding>
-            <element signature="e#107#126#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="81" lean-forward="false" selection-start-line="5" selection-start-column="81" selection-end-line="5" selection-end-column="81" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/echo.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="10" lean-forward="false" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/socker.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="69" column="27" lean-forward="false" selection-start-line="69" selection-start-column="27" selection-end-line="69" selection-end-column="27" />
-          <folding>
-            <element signature="e#741#760#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -790,12 +669,95 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/echo.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="9" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/echo.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="25" column="74" lean-forward="false" selection-start-line="25" selection-start-column="74" selection-end-line="25" selection-end-column="74" />
+        <state relative-caret-position="36">
+          <caret line="16" column="34" lean-forward="false" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
           <folding>
-            <element signature="e#107#128#0" expanded="true" />
+            <element signature="e#107#128#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="3" lean-forward="false" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="3" lean-forward="true" selection-start-line="13" selection-start-column="3" selection-end-line="13" selection-end-column="3" />
+          <folding>
+            <element signature="e#36#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usage.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rasocket.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="127" column="32" lean-forward="false" selection-start-line="127" selection-start-column="32" selection-end-line="127" selection-end-column="32" />
+          <folding>
+            <element signature="e#1551#2146#0" expanded="true" />
+            <element signature="e#3281#3329#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/send.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="45" column="33" lean-forward="false" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
+          <folding>
+            <element signature="e#107#126#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socker.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="27" column="32" lean-forward="false" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+          <folding>
+            <element signature="e#741#760#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="954">
+          <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+          <folding>
+            <element signature="e#106#127#0" expanded="true" />
           </folding>
         </state>
       </provider>

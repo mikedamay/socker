@@ -17,14 +17,15 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include <assert.h>
 #include "rasocket.h"
+#include "utils.h"
 #include "send.h"
 #include "echo.h"
+#include "proxy.h"
 
 static const int USAGE_LEN = 1024;
-static const int NUM_ACTIONS = 2;
+static const int NUM_ACTIONS = 3;
 enum {NO_ACTION, SUCCESS, FAILURE};
 
 int main(int argc, char **argv)
@@ -36,25 +37,10 @@ int main(int argc, char **argv)
     char machine[ADDRESS_SIZE];
 
     WINSOCK_START
-    strcpy(machine,"");
-    if (argc > ARG_REMOTE_HOST) {
-        strcpy(machine,argv[ARG_REMOTE_HOST]);
+    if (!getHostAndPort(argc, argv, ARG_REMOTE_HOST, ARG_PORT, machine, ADDRESS_SIZE, &port))
+    {
+        exit(255);
     }
-
-    if(argc > ARG_PORT) {
-        int nn;
-        nn = atoi(argv[ARG_PORT]);
-        if ( nn < 1 || nn > USHRT_MAX) {
-            fprintf(stderr, "port [%s] must be between 1 and %d", argv[ARG_PORT], USHRT_MAX);
-            exit(-1);
-        }
-        port = (unsigned short)nn;
-    }
-    if(strcmp(machine,"")==0)
-        gethostname(machine,ADDRESS_SIZE);
-
-    if(port == 0)
-        port = DEFAULT_PORT;
 
     if (ssend_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
     {
@@ -63,6 +49,10 @@ int main(int argc, char **argv)
     else if (secho_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
     {
         result = secho(machine, port) ? SUCCESS : FAILURE;
+    }
+    else if (sproxy_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
+    {
+        result = sproxy(argc, argv) ? SUCCESS : FAILURE;
     }
     assert(actionIdx <= NUM_ACTIONS); // try to remember to up the number of actions
     if ( result == NO_ACTION)

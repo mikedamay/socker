@@ -108,7 +108,7 @@ bool ssend(char *remoteServer, unsigned short remotePort)
         }
     }
     while (true);
-    //int res = shutdown(sd, SHUT_RDWR);
+    //int res = shutdown(sdProxyServer, SHUT_RDWR);
     close(sd);
     return true;
 }

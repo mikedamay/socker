@@ -121,7 +121,8 @@ typedef int bool;
 #endif
 
 #define ADDRESS_SIZE 108
-#define DEFAULT_PORT 80
+#define DEFAULT_PORT 11900
 #define ARG_ACTION 1
 #define ARG_REMOTE_HOST 2
 #define ARG_PORT 3
+#define SCRATCH_BUFFER_SIZE 1024
