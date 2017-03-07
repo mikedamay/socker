@@ -105,10 +105,9 @@ bool sproxy(int argc, char ** argv)
         }
         else
         {
-
-            SOCKET sd2;
+            SOCKET sdClient;
             printf("socker:proxy() about to call accept()\n");
-            if ((sd2 = accept(sdProxyServer, NULL, NULL)) == SOCKET_FAILED)
+            if ((sdClient = accept(sdProxyServer, NULL, NULL)) == SOCKET_FAILED)
             {
                 printError("accept failed:");
                 return false;
@@ -118,28 +117,39 @@ bool sproxy(int argc, char ** argv)
             ssize_t numBytes;
             do
             {
-                numBytes = recv(sd2, buffer, sizeof(buffer), 0);
-                if (numBytes == -1)
+                fd_set rfds;
+                fd_set exceptfds;
+                FD_ZERO(&rfds);
+                FD_ZERO(&exceptfds);
+                FD_SET(sdProxied, &rfds);
+                FD_SET(sdProxied, &exceptfds);
+                FD_SET(sdClient, &rfds);
+                FD_SET(sdClient, &exceptfds);
+                if (FD_ISSET(sdClient, &rfds))
                 {
-                    printError("socker:proxy() read failed:");
-                    break;
-                }
-                else if (numBytes > 0)
-                {
-                    printf("socker:proxy() about to print buffer\n");
-                    printf(buffer);
-                    printf("\n");
-                    send(sd2, buffer, sizeof buffer, 0);
-                }
-                else
-                {
-                    printf("socker:proxy() read of zero bytes performed\n");
-                    printError("socker:proxy() zero bytes read error:");
-                    break;
+                    numBytes = recv(sdClient, buffer, sizeof(buffer), 0);
+                    if (numBytes == -1)
+                    {
+                        printError("socker:proxy() read failed:");
+                        break;
+                    }
+                    else if (numBytes > 0)
+                    {
+                        printf("socker:proxy() about to print buffer\n");
+                        printf(buffer);
+                        printf("\n");
+                        send(sdProxied, buffer, sizeof buffer, 0);
+                    }
+                    else
+                    {
+                        printf("socker:proxy() read of zero bytes performed\n");
+                        printError("socker:proxy() zero bytes read error:");
+                        break;
+                    }
                 }
             }
             while (true);   // while reading a message
-            close(sd2);
+            close(sdClient);
         }   // while listening
     }
 }

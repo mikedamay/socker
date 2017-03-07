@@ -1,7 +1,8 @@
 
 /**
+ * does not build on windows or OSX
  * create a server and fork a client which sends the server a single message via a tcp socket both processes then exit.
- * where does gcc get sockaddr from - presumably comes with system calls
+ * where does gcc get sockaddr from - compiler does't care about the forward reference - I suppose the linker doesn't either
  * @return 253 is returned from the server socket, number of bytes written is returned by the client
  */
 int main()
