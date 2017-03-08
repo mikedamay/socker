@@ -22,19 +22,21 @@ struct OneTimeBufferItem {
     size_t readOffwet;
     size_t bytesWritten;
     OneTimeBufferItem * next;
+    OneTimeBufferItem * previous;
 };
 
 struct OneTimeBuffer {
     int magic;
     char * name;
-    OneTimeBufferItem * bufferItemListHead;
-    OneTimeBufferItem * bufferItemListTail;
+    OneTimeBufferItem * bufferItemListNchor;
+    OneTimeBufferItem * bufferItemListLead;
     bool lockedForRead;
     bool lockedForWrite;
 };
 static struct OneTimeBuffer * callocOneTimeBuffer(char * name);
 static bool isValidBuffer(OneTimeBuffer * p);
 static OneTimeBufferItem * callocOneTimeBufferItem(size_t length);
+static void freeOneTimeBufferItem(OneTimeBufferItem * otbi);
 
 ONE_TIME_BUFFER_HANDLE createOneTimeBuffer(char *name)
 {
@@ -51,9 +53,16 @@ bool getAndLockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, char **pbuffer, size_
     {
         return false;
     }
-    pItem->next = potb->bufferItemListHead;
-    potb->bufferItemListHead = pItem;
-    potb->bufferItemListTail = pItem;
+    pItem->next = potb->bufferItemListNchor;
+    if (potb->bufferItemListNchor != NULL)
+    {
+        potb->bufferItemListNchor->previous = pItem;
+    }
+    else
+    {
+        potb->bufferItemListLead = pItem;
+    }
+    potb->bufferItemListNchor = pItem;
     *pbuffer = (pItem->buffer + MAGIC_LENGTH);
     potb->lockedForWrite = true;
     return true;
@@ -64,7 +73,7 @@ void unlockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, size_t bytesWritten)
     OneTimeBuffer * potb = (OneTimeBuffer *)hBuffer;
     assert(isValidBuffer(potb));
     assert (potb->lockedForWrite);
-    potb->bufferItemListHead->bytesWritten = bytesWritten;
+    potb->bufferItemListNchor->bytesWritten = bytesWritten;
     potb->lockedForWrite = false;
 }
 
@@ -74,14 +83,37 @@ bool getAndLockOTBForRead(ONE_TIME_BUFFER_HANDLE hBuffer, char ** buffer, size_t
     assert(isValidBuffer(potb));
     assert (!potb->lockedForRead);
     assert (!potb->lockedForWrite);
-    if (potb->bufferItemListTail == NULL)
+    if (potb->bufferItemListLead == NULL)
     {
         return false;           // end of data reached
     }
-    *buffer = potb->bufferItemListTail->buffer + MAGIC_LENGTH + potb->bufferItemListTail->readOffwet;
-    *pnBytesToRead = potb->bufferItemListTail->bytesWritten;
+    *buffer = potb->bufferItemListLead->buffer + MAGIC_LENGTH + potb->bufferItemListLead->readOffwet;
+    *pnBytesToRead = potb->bufferItemListLead->bytesWritten - potb->bufferItemListLead->readOffwet;
     potb->lockedForRead = true;
     return true;
+}
+
+void unlockOTB(ONE_TIME_BUFFER_HANDLE hBuffer, size_t nBytesRead)
+{
+    OneTimeBuffer * potb = (OneTimeBuffer *)hBuffer;
+    assert(isValidBuffer(potb));
+    if (!potb->lockedForRead)
+    {
+        return;
+    }
+    assert (!potb->lockedForWrite);
+    potb->lockedForRead = false;
+    potb->bufferItemListLead->readOffwet += nBytesRead;
+    if (potb->bufferItemListLead->readOffwet >= potb->bufferItemListLead->bytesWritten)
+    {   // discard this part of the one time buffer as it has now been completely read
+        OneTimeBufferItem * otbi = potb->bufferItemListLead;
+        potb->bufferItemListLead = potb->bufferItemListLead->previous;
+        if ( potb->bufferItemListLead != NULL)
+        {
+            potb->bufferItemListLead->next = NULL;
+        }
+        freeOneTimeBufferItem(otbi);
+    }
 }
 /**
  *
