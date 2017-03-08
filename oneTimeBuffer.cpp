@@ -37,13 +37,27 @@ static struct OneTimeBuffer * callocOneTimeBuffer(char * name);
 static bool isValidBuffer(OneTimeBuffer * p);
 static OneTimeBufferItem * callocOneTimeBufferItem(size_t length);
 static void freeOneTimeBufferItem(OneTimeBufferItem * otbi);
+static bool getAndLockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, char **pbuffer, size_t bufferLength);
+static void unlockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, size_t bytesWritten);
 
 ONE_TIME_BUFFER_HANDLE createOneTimeBuffer(char *name)
 {
     return (ONE_TIME_BUFFER_HANDLE)callocOneTimeBuffer(name);
 }
 
-bool getAndLockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, char **pbuffer, size_t bufferLength)
+bool writeOTB(ONE_TIME_BUFFER_HANDLE hBuffer, char * buffer,  size_t nBytesWritten)
+{
+    char * otbBuffer;
+    if (getAndLockOTBForWrite(hBuffer, &otbBuffer, nBytesWritten ))
+    {
+        memcpy(otbBuffer, buffer, nBytesWritten);
+        unlockOTBForWrite(hBuffer, nBytesWritten);
+        return true;
+    }
+    return false;
+}
+
+static bool getAndLockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, char **pbuffer, size_t bufferLength)
 {
     OneTimeBuffer * potb = (OneTimeBuffer *)hBuffer;
     assert(isValidBuffer(potb));

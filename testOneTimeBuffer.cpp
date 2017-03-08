@@ -51,7 +51,7 @@ static bool testGetAndLockForWrite()
     ONE_TIME_BUFFER_HANDLE hBuffer = createOneTimeBuffer((char *)"test buffer");
     char * buffer;
     int nBytes;
-    bool result = getAndLockOTBForWrite(hBuffer, &buffer, strlen("test buffer") + 1);
+    bool result = writeOTB(hBuffer, (char * )"test buffer", strlen("test buffer") + 1);
     assert(result);
      return result;
 }
@@ -62,15 +62,14 @@ static bool testGetAndLockForRead()
     ONE_TIME_BUFFER_HANDLE hBuffer = createOneTimeBuffer(text);
     char * buffer;
     int nBytes;
-    bool result = getAndLockOTBForWrite(hBuffer, &buffer, strlen(text));
+    bool result = writeOTB(hBuffer, text, strlen(text));
     assert(result);
     strcpy(buffer, text);
-    unlockOTBForWrite(hBuffer,strlen(text) + 1);
     char * buffer2;
     size_t nBytes2;
     result = getAndLockOTBForRead(hBuffer, &buffer2, &nBytes2);
     assert(strcmp(buffer, text) == 0);
-    assert(nBytes2 == strlen(text) + 1);
+    assert(nBytes2 == strlen(text));
     return result;
 }
 
@@ -80,10 +79,8 @@ static bool testMixedOperations()
     ONE_TIME_BUFFER_HANDLE hBuffer = createOneTimeBuffer(text);
     char * buffer;
     int nBytes;
-    bool result = getAndLockOTBForWrite(hBuffer, &buffer, strlen(text));
+    bool result = writeOTB(hBuffer, text, strlen(text));
     assert(result);
-    memcpy(buffer, text, 20);
-    unlockOTBForWrite(hBuffer,20);
     char * buffer2;
     size_t nBytes2;
     result = getAndLockOTBForRead(hBuffer, &buffer2, &nBytes2);
@@ -105,9 +102,8 @@ static bool testMultipleOperations()
     ONE_TIME_BUFFER_HANDLE hBuffer = createOneTimeBuffer(text);
     char * buffer;
     int nBytes;
-    bool result = getAndLockOTBForWrite(hBuffer, &buffer, strlen(text));
+    bool result = writeOTB(hBuffer, text, strlen(text));
     memcpy(buffer, text, sizeofText);
-    unlockOTBForWrite(hBuffer,20);
     char * buffer2;
     size_t nBytes2;
     int ii = 0;
