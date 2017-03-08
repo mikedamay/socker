@@ -57,7 +57,7 @@ int main(int argc, char **argv)
     }
     else if (testOneTimeBuffer_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
     {
-        result = testOneTimeBuffer(argc, argv) ? SUCCESS : FAILURE;
+        result = testOneTimeBuffer() ? SUCCESS : FAILURE;
     }
     assert(actionIdx <= NUM_ACTIONS); // try to remember to up the number of actions
     if ( result == NO_ACTION)

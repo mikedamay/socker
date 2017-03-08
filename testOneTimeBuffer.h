@@ -5,5 +5,5 @@
 #ifndef SOCKER_TESTONETIMEBUFFER_H
 #define SOCKER_TESTONETIMEBUFFER_H
 bool testOneTimeBuffer_usage(int argc, char **argv, char *usageStr, size_t usageLen);
-bool testOneTimeBuffer(int argc, char **argv);
+bool testOneTimeBuffer();
 #endif //SOCKER_TESTONETIMEBUFFER_H
