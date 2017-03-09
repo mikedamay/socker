@@ -23,7 +23,7 @@ bool testOneTimeBuffer_usage(int argc, char **argv, char *usageStr, size_t usage
     {
         if(strcmp(argv[ARG_ACTION],"test") != 0)
         {
-            strncpy(usageStr, "socker test <function>", usageLen);
+            strncpy(usageStr, "socker test\n\trun self test", usageLen);
             return false;
         }
     }
@@ -67,7 +67,7 @@ static bool testGetAndLockForRead()
     bool result = writeOTB(hBuffer, text, strlen(text));
     assert(result);
     char * buffer2;
-    size_t nBytes2;
+    ssize_t nBytes2;
     result = getAndLockOTBForRead(hBuffer, &buffer2, &nBytes2);
     assert(strncmp(buffer2, text, 10) == 0);
     assert(nBytes2 == strlen(text));
@@ -82,7 +82,7 @@ static bool testMixedOperations()
     bool result = writeOTB(hBuffer, text, strlen(text));
     assert(result);
     char * buffer2;
-    size_t nBytes2;
+    ssize_t nBytes2;
     getAndLockOTBForRead(hBuffer, &buffer2, &nBytes2);
     assert(strncmp(buffer2, text, 20) == 0);
     assert(nBytes2 == 20);
@@ -98,11 +98,11 @@ static bool testMultipleOperations()
 {
     printf("testMultipleOperations()\n");
     char * text = (char * )"12345678901234567890";
-    size_t sizeofText = strlen(text);
+    ssize_t sizeofText = strlen(text);
     ONE_TIME_BUFFER_HANDLE hBuffer = createOneTimeBuffer(text);
     bool result = writeOTB(hBuffer, text, sizeofText);
     char * buffer2;
-    size_t nBytes2;
+    ssize_t nBytes2;
     int ii = 0;
     while (getAndLockOTBForRead(hBuffer, &buffer2, &nBytes2))
     {
@@ -119,12 +119,12 @@ static bool testMixedReadWriteOperations()
     printf("testMixedReadWriteOperations()\n");
     char * text = (char * )"12345678901234567890";
     char * text2 = (char * )"ABCDEFGHIJKLMNOPQRS";
-    size_t sizeofText = strlen(text);
-    size_t sizeofText2 = strlen(text2);
+    ssize_t sizeofText = strlen(text);
+    ssize_t sizeofText2 = strlen(text2);
     ONE_TIME_BUFFER_HANDLE hBuffer = createOneTimeBuffer(text);
     writeOTB(hBuffer, text, strlen(text));
     char * buffer2;
-    size_t nBytes2;
+    ssize_t nBytes2;
     int ii = 0;
     for (ii = 0; ii < 3; ii++ )
     {
@@ -133,7 +133,7 @@ static bool testMixedReadWriteOperations()
         unlockOTB(hBuffer, 1);
     }
     bool result = writeOTB(hBuffer, text2, sizeofText2);
-    size_t availableBytes = availableBytesInOTB(hBuffer);
+    ssize_t availableBytes = availableBytesInOTB(hBuffer);
     assert(availableBytes == sizeofText + sizeofText2 - 3);
     while (ii < sizeofText)
     {

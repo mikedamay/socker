@@ -4,9 +4,10 @@
  */
 
 
-#include <cstring>
+#include <string.h>
 #include <assert.h>
-#include "stdlib.h"
+#include <stdlib.h>
+#include "rasocket.h"
 #include "oneTimeBuffer.h"
 
 #define GOOD_MAGIC 43962    /* ABBA */
@@ -17,52 +18,53 @@
 
 struct OneTimeBufferItem {
     char * buffer;
-    size_t bufferSize;
-    size_t readOffwet;
-    size_t bytesWritten;
-    OneTimeBufferItem * previous;
+    ssize_t bufferSize;
+    ssize_t readOffwet;
+    ssize_t bytesWritten;
+    struct OneTimeBufferItem * previous;
 };
 
 struct OneTimeBuffer {
     int magic;
     char * name;
-    OneTimeBufferItem * bufferItemListNchor;
-    OneTimeBufferItem * bufferItemListLead;
+    struct OneTimeBufferItem * bufferItemListNchor;
+    struct OneTimeBufferItem * bufferItemListLead;
     bool lockedForRead;
     bool lockedForWrite;
-    size_t availableBytes;
+    ssize_t availableBytes;
 };
 static struct OneTimeBuffer * callocOneTimeBuffer(char * name);
-static bool isValidBuffer(OneTimeBuffer * p);
-static OneTimeBufferItem * callocOneTimeBufferItem(size_t length);
-static void freeOneTimeBufferItem(OneTimeBufferItem * otbi);
-static bool getAndLockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, char **pbuffer, size_t bufferLength);
-static void unlockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, size_t bytesWritten);
-static void freeOneTimeBuffer(OneTimeBuffer * p);
+static bool isValidBuffer(struct OneTimeBuffer * p);
+static struct OneTimeBufferItem * callocOneTimeBufferItem(ssize_t length);
+static void freeOneTimeBufferItem(struct OneTimeBufferItem * otbi);
+static bool getAndLockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, char **pbuffer, ssize_t bufferLength);
+static void unlockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, ssize_t bytesWritten);
+static void freeOneTimeBuffer(struct OneTimeBuffer * p);
 
 ONE_TIME_BUFFER_HANDLE createOneTimeBuffer(char *name)
 {
     return (ONE_TIME_BUFFER_HANDLE)callocOneTimeBuffer(name);
 }
 
-bool writeOTB(ONE_TIME_BUFFER_HANDLE hBuffer, char * buffer,  size_t nBytesWritten)
+bool writeOTB(ONE_TIME_BUFFER_HANDLE hBuffer, char * buffer,  ssize_t nBytesWritten)
 {
     char * otbBuffer;
     if (getAndLockOTBForWrite(hBuffer, &otbBuffer, nBytesWritten ))
     {
-        memcpy(otbBuffer, buffer, nBytesWritten);
+        assert(nBytesWritten >= 0 && nBytesWritten <= UINT_MAX);
+        memcpy(otbBuffer, buffer, (size_t)nBytesWritten);
         unlockOTBForWrite(hBuffer, nBytesWritten);
         return true;
     }
     return false;
 }
 
-static bool getAndLockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, char **pbuffer, size_t bufferLength)
+static bool getAndLockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, char **pbuffer, ssize_t bufferLength)
 {
-    OneTimeBuffer * potb = (OneTimeBuffer *)hBuffer;
+    struct OneTimeBuffer * potb = (struct OneTimeBuffer *)hBuffer;
     assert(isValidBuffer(potb));
     assert (!potb->lockedForWrite);
-    OneTimeBufferItem * pItem = callocOneTimeBufferItem(bufferLength + 2 * MAGIC_LENGTH);
+    struct OneTimeBufferItem * pItem = callocOneTimeBufferItem(bufferLength + 2 * MAGIC_LENGTH);
     if (pItem == NULL)
     {
         return false;
@@ -81,9 +83,9 @@ static bool getAndLockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, char **pbuffer
     return true;
 }
 
-void unlockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, size_t bytesWritten)
+void unlockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, ssize_t bytesWritten)
 {
-    OneTimeBuffer * potb = (OneTimeBuffer *)hBuffer;
+    struct OneTimeBuffer * potb = (struct OneTimeBuffer *)hBuffer;
     assert(isValidBuffer(potb));
     assert (potb->lockedForWrite);
     potb->bufferItemListNchor->bytesWritten = bytesWritten;
@@ -91,9 +93,9 @@ void unlockOTBForWrite(ONE_TIME_BUFFER_HANDLE hBuffer, size_t bytesWritten)
     potb->lockedForWrite = false;
 }
 
-bool getAndLockOTBForRead(ONE_TIME_BUFFER_HANDLE hBuffer, char ** buffer, size_t * pnBytesToRead)
+bool getAndLockOTBForRead(ONE_TIME_BUFFER_HANDLE hBuffer, char ** buffer, ssize_t * pnBytesToRead)
 {
-    OneTimeBuffer * potb = (OneTimeBuffer *)hBuffer;
+    struct OneTimeBuffer * potb = (struct OneTimeBuffer *)hBuffer;
     assert(isValidBuffer(potb));
     assert (!potb->lockedForRead);
     assert (!potb->lockedForWrite);
@@ -107,9 +109,9 @@ bool getAndLockOTBForRead(ONE_TIME_BUFFER_HANDLE hBuffer, char ** buffer, size_t
     return true;
 }
 
-void unlockOTB(ONE_TIME_BUFFER_HANDLE hBuffer, size_t nBytesRead)
+void unlockOTB(ONE_TIME_BUFFER_HANDLE hBuffer, ssize_t nBytesRead)
 {
-    OneTimeBuffer * potb = (OneTimeBuffer *)hBuffer;
+    struct OneTimeBuffer * potb = (struct OneTimeBuffer *)hBuffer;
     assert(isValidBuffer(potb));
     if (!potb->lockedForRead)
     {
@@ -121,7 +123,7 @@ void unlockOTB(ONE_TIME_BUFFER_HANDLE hBuffer, size_t nBytesRead)
     potb->availableBytes -= nBytesRead;
     if (potb->bufferItemListLead->readOffwet >= potb->bufferItemListLead->bytesWritten)
     {   // discard this part of the one time buffer as it has now been completely read
-        OneTimeBufferItem * otbi = potb->bufferItemListLead;
+        struct OneTimeBufferItem * otbi = potb->bufferItemListLead;
         potb->bufferItemListLead = potb->bufferItemListLead->previous;
         if ( potb->bufferItemListLead == NULL)
         {
@@ -132,9 +134,9 @@ void unlockOTB(ONE_TIME_BUFFER_HANDLE hBuffer, size_t nBytesRead)
     }
 }
 
-size_t availableBytesInOTB(ONE_TIME_BUFFER_HANDLE hBuffer)
+ssize_t availableBytesInOTB(ONE_TIME_BUFFER_HANDLE hBuffer)
 {
-    OneTimeBuffer * potb = (OneTimeBuffer *)hBuffer;
+    struct OneTimeBuffer * potb = (struct OneTimeBuffer *)hBuffer;
     assert(isValidBuffer(potb));
     assert( potb->availableBytes > 0 || potb->availableBytes == 0 && potb->bufferItemListNchor == NULL
       && potb->bufferItemListLead == NULL);
@@ -143,7 +145,7 @@ size_t availableBytesInOTB(ONE_TIME_BUFFER_HANDLE hBuffer)
 
 void destroyOneTimeBuffer(ONE_TIME_BUFFER_HANDLE hBuffer)
 {
-    OneTimeBuffer * potb = (OneTimeBuffer *)hBuffer;
+    struct OneTimeBuffer * potb = (struct OneTimeBuffer *)hBuffer;
     assert(isValidBuffer(potb));
     freeOneTimeBuffer(potb);
 }
@@ -155,7 +157,7 @@ void destroyOneTimeBuffer(ONE_TIME_BUFFER_HANDLE hBuffer)
  */
 static struct OneTimeBuffer * callocOneTimeBuffer(char * name)
 {
-    OneTimeBuffer * otb = (OneTimeBuffer *)calloc(1, sizeof (struct OneTimeBuffer));
+    struct OneTimeBuffer * otb = (struct OneTimeBuffer *)calloc(1, sizeof (struct OneTimeBuffer));
     if (otb != NULL)
     {
         otb->name = (char * )malloc(strlen(name) + 1);
@@ -173,7 +175,7 @@ static struct OneTimeBuffer * callocOneTimeBuffer(char * name)
     return NULL;
 }
 
-static void freeOneTimeBuffer(OneTimeBuffer * p)
+static void freeOneTimeBuffer(struct OneTimeBuffer * p)
 {
     if (p == NULL)
     {
@@ -188,17 +190,18 @@ static void freeOneTimeBuffer(OneTimeBuffer * p)
     free(p);
 }
 
-static bool isValidBuffer(OneTimeBuffer * p)
+static bool isValidBuffer(struct OneTimeBuffer * p)
 {
     return p->magic == GOOD_MAGIC;
 }
 
-static OneTimeBufferItem * callocOneTimeBufferItem(size_t length)
+static struct OneTimeBufferItem * callocOneTimeBufferItem(ssize_t length)
 {
-    OneTimeBufferItem * otbi = (OneTimeBufferItem *)calloc(1, sizeof (struct OneTimeBufferItem));
+    struct OneTimeBufferItem * otbi = (struct OneTimeBufferItem *)calloc(1, sizeof (struct OneTimeBufferItem));
     if (otbi != NULL)
     {
-        if ((otbi->buffer = (char *)calloc(1, length) ) != NULL)
+        assert(length >= 0 && length <= UINT_MAX);
+        if ((otbi->buffer = (char *)calloc(1, (size_t)length) ) != NULL)
         {
             *(int *)otbi->buffer = GOOD_ITEM_MAGIC;
             *(int *)(otbi->buffer +length - 4) = GOOD_ITEM_MAGIC;
@@ -209,7 +212,7 @@ static OneTimeBufferItem * callocOneTimeBufferItem(size_t length)
     return NULL;
 }
 
-static void freeOneTimeBufferItem(OneTimeBufferItem * otbi)
+static void freeOneTimeBufferItem(struct OneTimeBufferItem * otbi)
 {
     if (otbi == NULL)
     {

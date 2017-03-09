@@ -1,8 +1,11 @@
 /***********************************************************************
 
 	socker
-	a simple program to stop the history server
+	a bunch of source addressing tcp/ip sockets.
 
+Build
+-----
+Builds through cmake or from command line
 
  To build from command line
  /usr/bin/gcc -g -x c *.cpp -o socker
@@ -13,6 +16,17 @@
  or maybe at the compile stage.  It could be an ordering issue of the.os
  I tried forcing bind.o first but not last.  Next step try that and
  find out the detailed behaviour of gcc.
+
+ There is a very simple module called minimal.c which only builds on Linux.
+ it is a minimal sockets program that implements both server and client.
+
+ Usage
+ do ./acoker --usage to see usage
+ Currently
+ echo: is a listener that sends back messages - single client only
+ connect: is the client tht matches echo
+ proxy: can sit between server and client (single client only)
+ test: runs a set of self tests on the OneTimeBuffer mechanism
 ************************************************************************/
 
 #include <stdlib.h>
@@ -38,18 +52,20 @@ int main(int argc, char **argv)
     char machine[ADDRESS_SIZE];
 
     WINSOCK_START
-    if (!getHostAndPort(argc, argv, ARG_REMOTE_HOST, ARG_PORT, machine, ADDRESS_SIZE, &port))
-    {
-        exit(255);
-    }
 
     if (ssend_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
     {
-        result = ssend(machine, port) ? SUCCESS : FAILURE;
+        if (getHostAndPort(argc, argv, ARG_REMOTE_HOST, ARG_PORT, machine, ADDRESS_SIZE, &port))
+        {
+            result = ssend(machine, port) ? SUCCESS : FAILURE;
+        }
     }
     else if (secho_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
     {
-        result = secho(machine, port) ? SUCCESS : FAILURE;
+        if (getHostAndPort(argc, argv, ARG_REMOTE_HOST, ARG_PORT, machine, ADDRESS_SIZE, &port))
+        {
+            result = secho(machine, port) ? SUCCESS : FAILURE;
+        }
     }
     else if (sproxy_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
     {

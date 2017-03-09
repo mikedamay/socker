@@ -12,19 +12,10 @@
 static SOCKET sd;
 #define BUFFER_SIZE (ssize_t)256
 
-static void ssleep(int seconds)
-{
-    struct timeval tv;
-    tv.tv_sec = seconds;
-    tv.tv_usec = 0;
-    select(0, NULL, NULL, NULL, &tv);
-
-}
-
 bool ssend_usage(int argc, char **argv, char *usageStr, size_t usageLen)
 {
     return usage(argc, argv, (char *)"connect"
-      ,(char *)"socker <action> <machinename> <portno>\n\te.g. socker connect localhost 80\n"
+      ,(char *)"socker connect <machinename> <portno>\n\te.g. socker connect localhost 11900\n\tsends a message to a server and listens for a response\n"
       , usageStr, usageLen);
 }
 
@@ -73,7 +64,7 @@ bool ssend(char *remoteServer, unsigned short remotePort)
 
     }
     char buffer2[1024];
-    printf("socker:bind() about to call read()\n");
+    printf("socker:connect() about to call read()\n");
     ssize_t numBytes;
     do
     {

@@ -3,21 +3,24 @@
 #include <string.h>
 #if !defined(WIN32)
 #include <sys/un.h>
+#include <netinet/in.h>
 #endif
 #include "rasocket.h"
 #include "proxy.h"
 #include "usage.h"
 #include "utils.h"
+#include "oneTimeBuffer.h"
 
+#define max(a,b) (a>b?a:b)
 
 bool sproxy_usage(int argc, char **argv, char *usageStr, size_t usageLen)
 {
     return usage(argc, argv, (char *)"proxy"
-            ,(char *)"socker <action> <proxyhostname> <proxyportnumber> <proxiedhostname> <proxiedportnumber>\n\te.g. socker proxy localhost 11900 remotehost 80\n"
+            ,(char *)"socker proxy <proxyhostname> <proxyportnumber> <proxiedhostname> <proxiedportnumber>\n\te.g. socker proxy localhost 12900 remotehost 11900\n\tforwards any messages from client to remotehost and vice versa\n"
             , usageStr, usageLen);
 }
 
-bool populateSockAddr(char * host, unsigned short port, sockaddr_in * psin)
+bool populateSockAddr(char * host, unsigned short port, struct sockaddr_in * psin)
 {
     struct hostent * pserver = gethostbyname(host);
     if (pserver == NULL)
@@ -114,17 +117,35 @@ bool sproxy(int argc, char ** argv)
             }
             char buffer[1024];
             printf("socker:proxy() about to call read()\n");
+            ONE_TIME_BUFFER_HANDLE fromClientBuffer = createOneTimeBuffer((char *)"From Client");
+            ONE_TIME_BUFFER_HANDLE  toClientBuffer = createOneTimeBuffer((char * )"To Client");
             ssize_t numBytes;
             do
             {
                 fd_set rfds;
+                fd_set wfds;
                 fd_set exceptfds;
                 FD_ZERO(&rfds);
+                FD_ZERO(&wfds);
                 FD_ZERO(&exceptfds);
                 FD_SET(sdProxied, &rfds);
                 FD_SET(sdProxied, &exceptfds);
                 FD_SET(sdClient, &rfds);
                 FD_SET(sdClient, &exceptfds);
+                if (availableBytesInOTB(fromClientBuffer) > 0)
+                {
+                    FD_SET(sdProxied, &wfds);
+                }
+                if (availableBytesInOTB(toClientBuffer) > 0)
+                {
+                    FD_SET(sdClient, &wfds);
+                }
+                int fdCap = max(sdClient, sdProxied) + 1;
+                select(fdCap, &rfds, &wfds, &exceptfds, NULL);
+                if (FD_ISSET(sdProxied, &exceptfds) || FD_ISSET(sdClient, &exceptfds))
+                {
+                    printf("socker:proxy() exception in select\n");
+                }
                 if (FD_ISSET(sdClient, &rfds))
                 {
                     numBytes = recv(sdClient, buffer, sizeof(buffer), 0);
@@ -135,10 +156,10 @@ bool sproxy(int argc, char ** argv)
                     }
                     else if (numBytes > 0)
                     {
-                        printf("socker:proxy() about to print buffer\n");
+                        printf("socker:proxy() about to print buffer from client\n");
                         printf(buffer);
                         printf("\n");
-                        send(sdProxied, buffer, sizeof buffer, 0);
+                        writeOTB(fromClientBuffer, buffer, numBytes);
                     }
                     else
                     {
@@ -147,8 +168,52 @@ bool sproxy(int argc, char ** argv)
                         break;
                     }
                 }
-            }
-            while (true);   // while reading a message
+                if (FD_ISSET(sdProxied, &rfds))
+                {
+                    numBytes = recv(sdProxied, buffer, sizeof(buffer), 0);
+                    if (numBytes == -1)
+                    {
+                        printError("socker:proxy() sdProxied read failed:");
+                        break;
+                    }
+                    else if (numBytes > 0)
+                    {
+                        printf("socker:proxy() about to print buffer from proxied\n");
+                        printf(buffer);
+                        printf("\n");
+                        writeOTB(toClientBuffer, buffer, numBytes);
+                    }
+                    else
+                    {
+                        printf("socker:proxy() proxied read of zero bytes performed\n");
+                        printError("socker:proxy() zero bytes read error:");
+                        break;
+                    }
+                }
+                if (FD_ISSET(sdProxied, &wfds))
+                {
+                    ssize_t numBytesToWrite;
+                    char * writeBuffer;
+                    if (getAndLockOTBForRead(fromClientBuffer, &writeBuffer, &numBytesToWrite))
+                    {
+                        printf("socker:proxy() about to send to proxied");
+                        ssize_t numBytesWritten = send(sdProxied, writeBuffer, (size_t)numBytesToWrite, 0);
+                        unlockOTB(fromClientBuffer, numBytesWritten);
+                    }
+                }
+                if (FD_ISSET(sdClient, &wfds))
+                {
+                    ssize_t numBytesToWrite;
+                    char * writeBuffer;
+                    if (getAndLockOTBForRead(toClientBuffer, &writeBuffer, &numBytesToWrite))
+                    {
+                        printf("socker:proxy() about to send to client");
+                        ssize_t numBytesWritten = send(sdClient, writeBuffer, (size_t)numBytesToWrite, 0);
+                        unlockOTB(toClientBuffer, numBytesWritten);
+                    }
+                }
+            } while (true);   // while reading a message
+
             close(sdClient);
         }   // while listening
     }

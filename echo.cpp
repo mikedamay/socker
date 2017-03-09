@@ -8,22 +8,12 @@
 #include "echo.h"
 #include "usage.h"
 
-
-static void ssleep(int seconds)
-{
-    struct timeval tv;
-    tv.tv_sec = seconds;
-    tv.tv_usec = 0;
-    select(0, NULL, NULL, NULL, &tv);
-
-}
-
 static SOCKET sd;
 
 bool secho_usage(int argc, char **argv, char *usageStr, size_t usageLen)
 {
     return usage(argc, argv, (char *)"echo"
-      ,(char *)"socker <action> <machinename> <portno>\n\te.g. socker echo localhost 80\n"
+      ,(char *)"socker echo <machinename> <portno>\n\te.g. socker echo localhost 11900\n\tlistens on a port and sends any message received back to the client\n"
       , usageStr, usageLen);
 }
 
@@ -34,7 +24,7 @@ bool secho(const char *host, unsigned short port)
 		printError(NULL);
 		return false;
 	}
-	printf("socker:bind() socket created\n");
+	printf("socker:echo() socket created\n");
 	struct hostent * server = gethostbyname(host);
 	if (server == NULL)
 	{
@@ -46,7 +36,7 @@ bool secho(const char *host, unsigned short port)
 	sin.sin_port = htons(port);
 	memcpy(&sin.sin_addr.s_addr, server->h_addr_list[0], (unsigned short)server->h_length);
 	memset(&sin.sin_zero, 0, sizeof sin.sin_zero);
-	printf("socker:bind() about to bind on port\n");
+	printf("socker:echo() about to bind on port\n");
 	if (bind(sd, (struct sockaddr *)&sin, sizeof(struct sockaddr_in)) == BIND_FAILED)
 	{
 		printError(NULL);
@@ -65,34 +55,34 @@ bool secho(const char *host, unsigned short port)
         else
         {
             SOCKET sd2;
-            printf("socker:bind() about to call accept()\n");
+            printf("socker:echo() about to call accept()\n");
             if ((sd2 = accept(sd, NULL, NULL)) == SOCKET_FAILED)
             {
 				printError("accept failed:");
                 return false;
             }
             char buffer[1024];
-            printf("socker:bind() about to call read()\n");
+            printf("socker:echo() about to call read()\n");
             ssize_t numBytes;
             do
             {
                 numBytes = recv(sd2, buffer, sizeof(buffer), 0);
                 if (numBytes == -1)
                 {
-					printError("socker:bind() read failed:");
+					printError("socker:echo() read failed:");
                     break;
                 }
                 else if (numBytes > 0)
                 {
-                    printf("socker:bind() about to print buffer\n");
+                    printf("socker:echo() about to print buffer\n");
                     printf(buffer);
                     printf("\n");
                     send(sd2, buffer, sizeof buffer, 0);
                 }
                 else
                 {
-                    printf("socker:bind() read of zero bytes performed\n");
-					printError("socker:bind() zero bytes read error:");
+                    printf("socker:echo() read of zero bytes performed\n");
+					printError("socker:echo() zero bytes read error:");
                     break;
                 }
             }
