@@ -88,14 +88,6 @@ bool sproxy(int argc, char ** argv)
         printError(NULL);
         return false;
     }
-/*
-    printf("socker:proxy() about to bind on proxyPort\n");
-    if (bind(sdProxyServer, (struct sockaddr *)&sin, sizeof(struct sockaddr_in)) == BIND_FAILED)
-    {
-        printError(NULL);
-        return false;
-    }
-*/
 
     // listen for connections and echo messages back to the peer
     while (true)
@@ -148,6 +140,7 @@ bool sproxy(int argc, char ** argv)
                 }
                 if (FD_ISSET(sdClient, &rfds))
                 {
+                    memset(buffer, '\0', sizeof(buffer));
                     numBytes = recv(sdClient, buffer, sizeof(buffer), 0);
                     if (numBytes == -1)
                     {
@@ -164,12 +157,13 @@ bool sproxy(int argc, char ** argv)
                     else
                     {
                         printf("socker:proxy() read of zero bytes performed\n");
-                        printError("socker:proxy() zero bytes read error:");
+                        printError("socker:proxy() zero bytes read error from client");
                         break;
                     }
                 }
                 if (FD_ISSET(sdProxied, &rfds))
                 {
+                    memset(buffer, '\0', sizeof(buffer));
                     numBytes = recv(sdProxied, buffer, sizeof(buffer), 0);
                     if (numBytes == -1)
                     {
@@ -186,7 +180,7 @@ bool sproxy(int argc, char ** argv)
                     else
                     {
                         printf("socker:proxy() proxied read of zero bytes performed\n");
-                        printError("socker:proxy() zero bytes read error:");
+                        printError("socker:proxy() zero bytes read error from proxied");
                         break;
                     }
                 }
@@ -196,7 +190,7 @@ bool sproxy(int argc, char ** argv)
                     char * writeBuffer;
                     if (getAndLockOTBForRead(fromClientBuffer, &writeBuffer, &numBytesToWrite))
                     {
-                        printf("socker:proxy() about to send to proxied");
+                        printf("socker:proxy() about to send to proxied\n");
                         ssize_t numBytesWritten = send(sdProxied, writeBuffer, (size_t)numBytesToWrite, 0);
                         unlockOTB(fromClientBuffer, numBytesWritten);
                     }

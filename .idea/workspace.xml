@@ -11,16 +11,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39aa4289-7672-4b3f-834d-53d7885ef0c2" name="Default" comment="proxy working well with test server and client">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/oldcode.c" />
+    <list default="true" id="39aa4289-7672-4b3f-834d-53d7885ef0c2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/echo.cpp" afterPath="$PROJECT_DIR$/echo.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oneTimeBuffer.cpp" afterPath="$PROJECT_DIR$/oneTimeBuffer.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oneTimeBuffer.h" afterPath="$PROJECT_DIR$/oneTimeBuffer.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/proxy.cpp" afterPath="$PROJECT_DIR$/proxy.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/send.cpp" afterPath="$PROJECT_DIR$/send.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/socker.cpp" afterPath="$PROJECT_DIR$/socker.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testOneTimeBuffer.cpp" afterPath="$PROJECT_DIR$/testOneTimeBuffer.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,18 +32,18 @@
       <file leaf-file-name="send.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/send.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="184">
+              <caret line="71" column="27" lean-forward="false" selection-start-line="71" selection-start-column="27" selection-end-line="71" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="proxy.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="proxy.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/proxy.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+            <state relative-caret-position="202">
+              <caret line="104" column="71" lean-forward="false" selection-start-line="104" selection-start-column="71" selection-end-line="104" selection-end-column="71" />
               <folding>
                 <element signature="e#79#98#0" expanded="true" />
                 <element signature="e#130#151#0" expanded="true" />
@@ -59,11 +52,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="echo.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="rasocket.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rasocket.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="199">
+              <caret line="88" column="8" lean-forward="false" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="echo.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/echo.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+            <state relative-caret-position="342">
+              <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -115,7 +118,7 @@
         <entry file="file://$PROJECT_DIR$/oneTimeBuffer.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="576">
-              <caret line="32" column="24" lean-forward="true" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+              <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
               <folding>
                 <element signature="e#99#118#0" expanded="true" />
               </folding>
@@ -176,11 +179,11 @@
         <option value="$PROJECT_DIR$/utils.cpp" />
         <option value="$PROJECT_DIR$/socker.cpp" />
         <option value="$PROJECT_DIR$/testOneTimeBuffer.cpp" />
-        <option value="$PROJECT_DIR$/proxy.cpp" />
         <option value="$PROJECT_DIR$/oneTimeBuffer.cpp" />
         <option value="$PROJECT_DIR$/send.cpp" />
         <option value="$PROJECT_DIR$/oldcode.c" />
         <option value="$PROJECT_DIR$/echo.cpp" />
+        <option value="$PROJECT_DIR$/proxy.cpp" />
       </list>
     </option>
   </component>
@@ -233,7 +236,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C/C++" />
   </component>
-  <component name="RunManager" selected="Application.testOneTimeBuffer">
+  <component name="RunManager" selected="Application.proxy_http">
     <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="socker" TARGET_NAME="socker" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
@@ -421,6 +424,10 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="false" name="proxy_http" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="proxy localhost 11900 localhost 80" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="socker" TARGET_NAME="socker" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="socker" RUN_TARGET_NAME="socker">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="false" name="fail_usage" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="localhost 80" WORKING_DIR="" PASS_PARENT_ENVS_2="true" PROJECT_NAME="socker" TARGET_NAME="socker" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="socker" RUN_TARGET_NAME="socker">
       <envs />
       <method />
@@ -433,15 +440,16 @@
       <envs />
       <method />
     </configuration>
-    <list size="8">
+    <list size="9">
       <item index="0" class="java.lang.String" itemvalue="Application.proxy" />
       <item index="1" class="java.lang.String" itemvalue="Application.Build All" />
       <item index="2" class="java.lang.String" itemvalue="Application.connect" />
       <item index="3" class="java.lang.String" itemvalue="Application.send_direct" />
       <item index="4" class="java.lang.String" itemvalue="Application.testOneTimeBuffer" />
-      <item index="5" class="java.lang.String" itemvalue="Application.fail_usage" />
-      <item index="6" class="java.lang.String" itemvalue="Application.echo" />
-      <item index="7" class="java.lang.String" itemvalue="Application.failed_socker" />
+      <item index="5" class="java.lang.String" itemvalue="Application.proxy_http" />
+      <item index="6" class="java.lang.String" itemvalue="Application.fail_usage" />
+      <item index="7" class="java.lang.String" itemvalue="Application.echo" />
+      <item index="8" class="java.lang.String" itemvalue="Application.failed_socker" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
@@ -460,7 +468,7 @@
       <workItem from="1488535104511" duration="9542000" />
       <workItem from="1488605435312" duration="24666000" />
       <workItem from="1488703739205" duration="47888000" />
-      <workItem from="1489037723684" duration="7111000" />
+      <workItem from="1489037723684" duration="12029000" />
     </task>
     <task id="LOCAL-00001" summary="tidying connect() code">
       <created>1488395244507</created>
@@ -567,28 +575,35 @@
       <option name="project" value="LOCAL" />
       <updated>1488961952827</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="proxy working well with test server and client">
+      <created>1489045487684</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1489045487684</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126908000" />
+    <option name="totallyTimeSpent" value="131826000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="35" width="2038" height="1090" extended-state="4" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17253347" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17253347" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19008264" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32747933" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923076" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3357438" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3357438" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29132232" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35227272" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -626,7 +641,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="56" />
+      <option name="time" value="58" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -812,13 +827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rasocket.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="127" column="32" lean-forward="false" selection-start-line="127" selection-start-column="32" selection-end-line="127" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/usage.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -883,25 +891,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proxy.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="34" lean-forward="false" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-          <folding>
-            <element signature="e#79#98#0" expanded="true" />
-            <element signature="e#130#151#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/send.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/oldcode.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -913,7 +902,7 @@
     <entry file="file://$PROJECT_DIR$/oneTimeBuffer.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
-          <caret line="32" column="24" lean-forward="true" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+          <caret line="32" column="24" lean-forward="false" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
           <folding>
             <element signature="e#99#118#0" expanded="true" />
           </folding>
@@ -922,9 +911,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/echo.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        <state relative-caret-position="342">
+          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/send.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="71" column="27" lean-forward="false" selection-start-line="71" selection-start-column="27" selection-end-line="71" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rasocket.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="88" column="8" lean-forward="false" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="104" column="71" lean-forward="false" selection-start-line="104" selection-start-column="71" selection-end-line="104" selection-end-column="71" />
+          <folding>
+            <element signature="e#79#98#0" expanded="true" />
+            <element signature="e#130#151#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
