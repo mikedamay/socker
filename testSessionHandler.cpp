@@ -3,6 +3,7 @@
 //
 
 #include <string.h>
+#include <stdio.h>
 #include <assert.h>
 #include "rasocket.h"
 #include "oneTimeBuffer.h"
@@ -45,6 +46,7 @@ bool testSessionHandler()
 
 static bool testCreate()
 {
+    printf((char *)"testCreate()\n");
     SESSION_HANDLER_HANDLE hHandler = createSessionHandler();
     assert(hHandler != SESSION_HANDLER_HANDLE_ERROR);
     destroySessionHandler(hHandler);
@@ -53,6 +55,7 @@ static bool testCreate()
 
 static bool testAddSession()
 {
+    printf((char *)"testAddSession()\n");
     SESSION_HANDLER_HANDLE shh = createSessionHandler();
     bool result = addSession(shh, 3, 4, NULL, NULL);
     int maxSD = getMaxSD(shh);
@@ -63,8 +66,9 @@ static bool testAddSession()
 
 static bool testRemoveSession()
 {
+    printf((char *)"testRemoveSession()\n");
     SESSION_HANDLER_HANDLE shh = createSessionHandler();
-    bool result = addSession(shh, 3, 4, NULL, NULL);
+    addSession(shh, 3, 4, NULL, NULL);
     removeSession(shh, 3);
     assert(getMaxSD(shh) == -1);
     return getMaxSD(shh) == -1;
@@ -72,6 +76,7 @@ static bool testRemoveSession()
 
 static bool testRemoveMultipleSessions()
 {
+    printf((char *)"testRemoveMultipleSessions()\n");
     SESSION_HANDLER_HANDLE shh = createSessionHandler();
     addSession(shh, 3, 4, NULL, NULL);
     assert(getMaxSD(shh) == 4);
@@ -90,6 +95,7 @@ static bool testRemoveMultipleSessions()
 
 static bool testSessionIter()
 {
+    printf((char *)"testSessionIter()\n");
     SESSION_HANDLER_HANDLE shh = createSessionHandler();
     addSession(shh, 3, 4, NULL, NULL);
     addSession(shh, 1, 2, NULL, NULL);
@@ -128,6 +134,7 @@ static bool testSessionIter()
 
 static bool test1024Sessions()
 {
+    printf((char *)"test1024Sessions()\n");
     SESSION_HANDLER_HANDLE shh = createSessionHandler();
     int ii;
     for (ii = 0; ii < 1024; ii++)

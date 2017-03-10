@@ -3,7 +3,6 @@
 //
 
 #include <malloc.h>
-#include <string.h>
 #include <assert.h>
 #include "rasocket.h"
 #include "oneTimeBuffer.h"
@@ -43,16 +42,19 @@ static struct Session *callocSession();
 static int getFreeSlot(struct SessionHandler * sh);
 static int clientSD2Idx(struct SessionHandler * sh, SOCKET sdClient);
 static void resetSummaryData(struct SessionHandler * sh);
+static bool isValidHandler(struct SessionHandler * p);
 
 SESSION_HANDLER_HANDLE createSessionHandler()
 {
     struct SessionHandler * shh = callocSessionHandler();
+
     shh->maxSD = -1;
     return shh;
 }
 
 void destroySessionHandler(SESSION_HANDLER_HANDLE sh)
 {
+    assert(isValidHandler((struct SessionHandler * )sh));
     freeSessionHandler((struct SessionHandler * )sh);
 }
 
@@ -60,6 +62,7 @@ bool addSession(SESSION_HANDLER_HANDLE shh, SOCKET sdClient, SOCKET sdProxied
   , ONE_TIME_BUFFER_HANDLE hFromClient, ONE_TIME_BUFFER_HANDLE hToClient)
 {
     struct SessionHandler * sh = (struct SessionHandler * )shh;
+    assert(isValidHandler(sh));
     struct Session * session = callocSession();
     if (session == NULL)
     {
@@ -83,12 +86,14 @@ void removeSession(SESSION_HANDLER_HANDLE shh, SOCKET sdClient)
     int idx = clientSD2Idx(sh, sdClient);
     assert(idx >= 0 && idx < sizeof sh->sessions / sizeof sh->sessions[0]);
     struct Session * session = sh->sessions[idx];
+    assert(session->magic == GOOD_MAGIC);
     sh->sessions[idx] = NULL;
     resetSummaryData(sh);
 }
 
 SESSION_ITER getSessionIter(SESSION_HANDLER_HANDLE shh)
 {
+    assert(isValidHandler((struct SessionHandler * )shh));
     struct SessionIter * si = &((struct SessionHandler * )shh)->iter;
     si->idx = 0;
     return si;
@@ -108,6 +113,7 @@ bool getNextSession(SESSION_ITER hIter, SOCKET * psdClient, SOCKET * psdProxied
         if (sh->sessions[iter->idx] != NULL)
         {
             struct Session * session = sh->sessions[iter->idx];
+            assert(session->magic == GOOD_MAGIC);
             *psdClient = session->sdClient;
             *psdProxied = session->sdProxied;
             *pFromClient = session->fromClientBuffer;
@@ -122,6 +128,11 @@ bool getNextSession(SESSION_ITER hIter, SOCKET * psdClient, SOCKET * psdProxied
 int getMaxSD(SESSION_HANDLER_HANDLE shh)
 {
     return ((struct SessionHandler * )shh)->maxSD;
+}
+
+static bool isValidHandler(struct SessionHandler * p)
+{
+    return p->magic == GOOD_MAGIC;
 }
 
 static int getFreeSlot(struct SessionHandler * sh)
