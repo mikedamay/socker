@@ -11,8 +11,6 @@
 #include "utils.h"
 #include "oneTimeBuffer.h"
 
-#define max(a,b) (a>b?a:b)
-
 bool sproxy_usage(int argc, char **argv, char *usageStr, size_t usageLen)
 {
     return usage(argc, argv, (char *)"proxy"
