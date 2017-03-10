@@ -35,11 +35,11 @@ bool testSessionHandler()
 {
     int result = true;
     result = result && testCreate();
-    result &= testAddSession();
-    result &= testRemoveSession();
-    result &= testRemoveMultipleSessions();
-    result &= testSessionIter();
-    result &= test1024Sessions();
+    result = result && testAddSession();
+    result = result && testRemoveSession();
+    result = result && testRemoveMultipleSessions();
+    result = result && testSessionIter();
+    result = result && test1024Sessions();
     return (bool)result;
 }
 

@@ -33,12 +33,12 @@ bool testOneTimeBuffer_usage(int argc, char **argv, char *usageStr, size_t usage
 bool testOneTimeBuffer()
 {
     int result = true;
-    result &= testCreate();
-    result &= testGetAndLockForWrite();
-    result &= testGetAndLockForRead();
-    result &= testMixedOperations();
-    result &= testMultipleOperations();
-    result &= testMixedReadWriteOperations();
+    result = result && testCreate();
+    result = result && testGetAndLockForWrite();
+    result = result && testGetAndLockForRead();
+    result = result && testMixedOperations();
+    result = result && testMultipleOperations();
+    result = result && testMixedReadWriteOperations();
     return (bool)result;
 }
 
