@@ -34,7 +34,7 @@ bool testSessionHandler_usage(int argc, char **argv, char *usageStr, size_t usag
 bool testSessionHandler()
 {
     int result = true;
-    result &= testCreate();
+    result = result && testCreate();
     result &= testAddSession();
     result &= testRemoveSession();
     result &= testRemoveMultipleSessions();

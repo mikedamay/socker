@@ -75,8 +75,8 @@ bool addSession(SESSION_HANDLER_HANDLE shh, SOCKET sdClient, SOCKET sdProxied
     int idx = getFreeSlot(sh);
     sh->sessions[idx] = session;
     sh->numSessions = max(sh->numSessions, idx + 1);
-    sh->maxSD = max(sh->maxSD, sdClient);
-    sh->maxSD = max(sh->maxSD, sdProxied);
+    sh->maxSD = max(sh->maxSD, (int)sdClient);
+    sh->maxSD = max(sh->maxSD, (int)sdProxied);
     return true;
 }
 
@@ -84,7 +84,7 @@ void removeSession(SESSION_HANDLER_HANDLE shh, SOCKET sdClient)
 {
     struct SessionHandler * sh = (struct SessionHandler * )shh;
     int idx = clientSD2Idx(sh, sdClient);
-    assert(idx >= 0 && idx < sizeof sh->sessions / sizeof sh->sessions[0]);
+    assert(idx >= 0 && idx < (int)(sizeof sh->sessions / sizeof sh->sessions[0]));
     struct Session * session = sh->sessions[idx];
     assert(session->magic == GOOD_MAGIC);
     sh->sessions[idx] = NULL;
@@ -175,7 +175,7 @@ static void resetSummaryData(struct SessionHandler * sh)
         if (sh->sessions[ii] != NULL)
         {
             sh->numSessions = ii + 1;
-            sh->maxSD = max(sh->maxSD, max(sh->sessions[ii]->sdClient, sh->sessions[ii]->sdProxied));
+            sh->maxSD = max(sh->maxSD, max((int)sh->sessions[ii]->sdClient, (int)sh->sessions[ii]->sdProxied));
         }
     }
 }

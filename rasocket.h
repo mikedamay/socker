@@ -126,6 +126,6 @@ typedef int bool;
 #define ARG_REMOTE_HOST 2
 #define ARG_PORT 3
 #define SCRATCH_BUFFER_SIZE 1024
-
+#if !defined (_WIN32)
 #define max(a,b) (a>b?a:b)
-
+#endif
