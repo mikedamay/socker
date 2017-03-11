@@ -77,7 +77,7 @@ bool ssend(char *remoteServer, unsigned short remotePort)
         else if (numBytes > 0)
         {
             printf("socker:connect() about to print buffer\n");
-            printf(buffer2);
+            printf("%s", buffer2);
             printf("\n");
         }
         else

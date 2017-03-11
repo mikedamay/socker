@@ -20,7 +20,7 @@
 #include <io.h>
 #define MAXHOSTNAMELEN 80
 #else
-#if !defined (AIX) && !defined (ALPHA)
+#if !defined (AIX) && !defined (ALPHA) && !defined(__APPLE__)
 #include <syscall.h>
 #endif
 #include <sys/socket.h>
@@ -108,13 +108,13 @@ typedef int ioctl_byte_count_t;
  * The fact that CLion sometimes thinks the section below is active but the compiler treats it
  * (correctly) as inactive is a bit disturbing.
  */
-#if defined(__STDC_VERSION__) && __STDC_VERSION__ < 201112L || defined(__GNUC_GNU_INLINE__)
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ < 201112L || defined(__GNUC_GNU_INLINE__)) && !defined(__APPLE__)
 typedef int bool;
 #define true 1
 #define false 0
 #endif
 
-#ifdef unix
+#if defined(unix) || defined(__APPLE__)
 #define SOCKET int
 #include <unistd.h>
 #endif

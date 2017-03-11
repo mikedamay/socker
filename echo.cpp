@@ -75,7 +75,7 @@ bool secho(const char *host, unsigned short port)
                 else if (numBytes > 0)
                 {
                     printf("socker:echo() about to print buffer\n");
-                    printf(buffer);
+                    printf("%s", buffer);
                     printf("\n");
                     send(sd2, buffer, sizeof buffer, 0);
                 }

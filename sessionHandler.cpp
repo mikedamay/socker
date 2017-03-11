@@ -1,8 +1,9 @@
 //
 // Created by mike on 3/9/17.
 //
-
+#if !defined(__APPLE__)
 #include <malloc.h>
+#endif
 #include <assert.h>
 #include "rasocket.h"
 #include "oneTimeBuffer.h"

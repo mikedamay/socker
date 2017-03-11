@@ -84,13 +84,13 @@ int main(int argc, char **argv)
     if ( result == NO_ACTION)
     {
         printf("usage:\n");
-        printf(usages[0]);
+        printf("%s", usages[0]);
         printf("\n");
         int ii;     // max compatibility
         for (ii = 1; ii < NUM_ACTIONS; ii++)
         {
             printf("or\n");
-            printf(usages[ii]);
+            printf("%s", usages[ii]);
             printf("\n");
         }
     }

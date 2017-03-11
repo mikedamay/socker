@@ -148,7 +148,7 @@ bool sproxy(int argc, char ** argv)
                     else if (numBytes > 0)
                     {
                         printf("socker:proxy() about to print buffer from client\n");
-                        printf(buffer);
+                        printf("%s", buffer);
                         printf("\n");
                         writeOTB(fromClientBuffer, buffer, numBytes);
                     }
@@ -171,7 +171,7 @@ bool sproxy(int argc, char ** argv)
                     else if (numBytes > 0)
                     {
                         printf("socker:proxy() about to print buffer from proxied\n");
-                        printf(buffer);
+                        printf("%s", buffer);
                         printf("\n");
                         writeOTB(toClientBuffer, buffer, numBytes);
                     }
