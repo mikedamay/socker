@@ -22,7 +22,7 @@
     <ProjectGuid>{46637EC9-9EB6-4C01-9B20-B435A04F08DB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>sockerVS</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
