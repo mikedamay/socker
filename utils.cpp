@@ -31,3 +31,19 @@ bool getHostAndPort(int argc, char ** argv, int posHostArg, int posPortArge, cha
         *pport = DEFAULT_PORT;
     return true;
 }
+
+bool populateSockAddr(char * host, unsigned short port, struct sockaddr_in * psin)
+{
+    struct hostent * pserver = gethostbyname(host);
+    if (pserver == NULL)
+    {
+        printError(NULL);
+        return false;
+    }
+    psin->sin_family = AF_INET;
+    psin->sin_port = htons(port);
+    memcpy(&psin->sin_addr.s_addr, pserver->h_addr_list[0], (unsigned short)pserver->h_length);
+    memset(&psin->sin_zero, 0, sizeof psin->sin_zero);
+    return true;
+}
+

@@ -39,9 +39,10 @@ Builds through cmake or from command line
 #include "proxy.h"
 #include "testOneTimeBuffer.h"
 #include "testSessionHandler.h"
+#include "multi_proxy.h"
 
 static const int USAGE_LEN = 1024;
-static const int NUM_ACTIONS = 5;
+static const int NUM_ACTIONS = 6;
 enum {NO_ACTION, SUCCESS, FAILURE};
 
 int main(int argc, char **argv)
@@ -71,6 +72,10 @@ int main(int argc, char **argv)
     else if (sproxy_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
     {
         result = sproxy(argc, argv) ? SUCCESS : FAILURE;
+    }
+    else if (smulti_proxy_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
+    {
+        result = smulti_proxy(argc, argv) ? SUCCESS : FAILURE;
     }
     else if (testSessionHandler_usage(argc, argv, usages[actionIdx++], USAGE_LEN))
     {
