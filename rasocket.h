@@ -108,7 +108,7 @@ typedef int ioctl_byte_count_t;
  * The fact that CLion sometimes thinks the section below is active but the compiler treats it
  * (correctly) as inactive is a bit disturbing.
  */
-#if (defined(__STDC_VERSION__) && __STDC_VERSION__ < 201112L || defined(__GNUC_GNU_INLINE__)) && !defined(__APPLE__)
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ < 201112L || defined(__GNUC_GNU_INLINE__) || defined(CLION)) && !defined(__APPLE__)
 typedef int bool;
 #define true 1
 #define false 0

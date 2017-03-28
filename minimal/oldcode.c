@@ -1,3 +1,6 @@
+#include <lzma.h>
+#include <sys/select.h>
+
 static void ssleep(int seconds)
 {
     struct timeval tv;

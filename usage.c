@@ -9,12 +9,12 @@ bool usage(int argc, char ** argv, char * action, char * usageText, char * usage
     usageStr[0] = '\0';
     if(argc > ARG_ACTION)
     {
-        if(strcmp(argv[ARG_ACTION],action) != 0)
+        if(strcmp(argv[ARG_ACTION],action) == 0)
         {
-            strncpy(usageStr, usageText, usageLen);
-            return false;
+            return true;
         }
     }
-    return true;
+    strncpy(usageStr, usageText, usageLen);
+    return false;
 
 }

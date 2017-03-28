@@ -21,13 +21,13 @@ bool testOneTimeBuffer_usage(int argc, char **argv, char *usageStr, size_t usage
     usageStr[0] = '\0';
     if(argc > ARG_ACTION)
     {
-        if(strcmp(argv[ARG_ACTION],"test") != 0)
+        if(strcmp(argv[ARG_ACTION],"test") == 0)
         {
-            strncpy(usageStr, "socker test\n\trun self test", usageLen);
-            return false;
+            return true;
         }
     }
-    return true;
+    strncpy(usageStr, "socker test\n\trun self test", usageLen);
+    return false;
 }
 
 bool testOneTimeBuffer()
