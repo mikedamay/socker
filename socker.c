@@ -41,8 +41,8 @@ Builds through cmake or from command line
 #include "testSessionHandler.h"
 #include "multi_proxy.h"
 
-static const int USAGE_LEN = 1024;
-static const int NUM_ACTIONS = 6;
+#define USAGE_LEN 1024
+#define NUM_ACTIONS 6
 enum {NO_ACTION, SUCCESS, FAILURE};
 
 int main(int argc, char **argv)

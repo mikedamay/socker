@@ -18,6 +18,35 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\echo.c" />
+    <ClCompile Include="..\..\multi_proxy.c" />
+    <ClCompile Include="..\..\oneTimeBuffer.c" />
+    <ClCompile Include="..\..\proxy.c" />
+    <ClCompile Include="..\..\send.c" />
+    <ClCompile Include="..\..\sessionHandler.c" />
+    <ClCompile Include="..\..\socker.c" />
+    <ClCompile Include="..\..\testOneTimeBuffer.c" />
+    <ClCompile Include="..\..\testSessionHandler.c" />
+    <ClCompile Include="..\..\usage.c" />
+    <ClCompile Include="..\..\utils.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\socker.i" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\echo.h" />
+    <ClInclude Include="..\..\multi_proxy.h" />
+    <ClInclude Include="..\..\oneTimeBuffer.h" />
+    <ClInclude Include="..\..\proxy.h" />
+    <ClInclude Include="..\..\rasocket.h" />
+    <ClInclude Include="..\..\send.h" />
+    <ClInclude Include="..\..\sessionHandler.h" />
+    <ClInclude Include="..\..\testOneTimeBuffer.h" />
+    <ClInclude Include="..\..\testSessionHandler.h" />
+    <ClInclude Include="..\..\usage.h" />
+    <ClInclude Include="..\..\utils.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{46637EC9-9EB6-4C01-9B20-B435A04F08DB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -147,30 +176,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\echo.cpp" />
-    <ClCompile Include="..\..\oneTimeBuffer.cpp" />
-    <ClCompile Include="..\..\proxy.cpp" />
-    <ClCompile Include="..\..\send.cpp" />
-    <ClCompile Include="..\..\sessionHandler.cpp" />
-    <ClCompile Include="..\..\socker.cpp" />
-    <ClCompile Include="..\..\testOneTimeBuffer.cpp" />
-    <ClCompile Include="..\..\testSessionHandler.cpp" />
-    <ClCompile Include="..\..\usage.cpp" />
-    <ClCompile Include="..\..\utils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\echo.h" />
-    <ClInclude Include="..\..\oneTimeBuffer.h" />
-    <ClInclude Include="..\..\proxy.h" />
-    <ClInclude Include="..\..\rasocket.h" />
-    <ClInclude Include="..\..\send.h" />
-    <ClInclude Include="..\..\sessionHandler.h" />
-    <ClInclude Include="..\..\testOneTimeBuffer.h" />
-    <ClInclude Include="..\..\testSessionHandler.h" />
-    <ClInclude Include="..\..\usage.h" />
-    <ClInclude Include="..\..\utils.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

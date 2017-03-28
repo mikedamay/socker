@@ -4,7 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <memory.h>
+#if !defined(_WIN32)
 #include <sys/socket.h>
+#endif
 #include "rasocket.h"
 #include "multi_proxy.h"
 #include "usage.h"
@@ -106,7 +108,7 @@ bool smulti_proxy(int argc, char ** argv)
                 }
             }
             si = SESSION_ITER_ERROR;
-            int fdCap = max(sdProxyServer, getMaxSD(shh)) + 1;
+            int fdCap = max(sdProxyServer, (unsigned int)getMaxSD(shh)) + 1;
             select(fdCap, &rfds, &wfds, &exceptfds, NULL);
             if (FD_ISSET(sdProxyServer, &exceptfds))
             {

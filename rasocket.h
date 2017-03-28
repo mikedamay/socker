@@ -10,11 +10,6 @@
 */
 #ifndef _RASOCK_H
 #define _RASOCK_H
-#if 0
-#ifdef MAINWIN
-#include <windows.h>
-#endif
-#endif
 #if defined (_WIN32)
 #include <winsock.h>
 #include <io.h>
@@ -78,7 +73,7 @@ typedef unsigned long ioctl_byte_count_t;
 #define printError(s) (s == NULL ? printf("error %d", WSAGetLastError()) : printf("%s %d", (char *)s, WSAGetLastError()))
 #define WINSOCK_START \
 int iResult; \
-WSAData wsaData = { 0 }; \
+struct WSAData wsaData = { 0 }; \
 iResult = WSAStartup(MAKEWORD(2, 2), &wsaData); \
 if (iResult != 0) { \
 printError("socker:connect() WSAStartup failed"); \
@@ -94,6 +89,7 @@ typedef int ioctl_byte_count_t;
 #define WINSOCK_START
 
 
+#endif
 /**
  * this is a bit tricky - confusion doubtless caused by my out-of-date experience.
  *
@@ -108,7 +104,7 @@ typedef int ioctl_byte_count_t;
  * The fact that CLion sometimes thinks the section below is active but the compiler treats it
  * (correctly) as inactive is a bit disturbing.
  */
-#if (defined(__STDC_VERSION__) && __STDC_VERSION__ < 201112L || defined(__GNUC_GNU_INLINE__) || defined(CLION)) || defined(__APPLE__)
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ < 201112L || defined(__GNUC_GNU_INLINE__) || defined(CLION))  || defined(__APPLE__) || defined(_WIN32)
 typedef int bool;
 #define true 1
 #define false 0
@@ -117,7 +113,6 @@ typedef int bool;
 #if defined(unix) || defined(__APPLE__)
 #define SOCKET int
 #include <unistd.h>
-#endif
 #endif
 
 #define ADDRESS_SIZE 108
