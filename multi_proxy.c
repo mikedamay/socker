@@ -250,4 +250,5 @@ bool smulti_proxy(int argc, char ** argv)
             si = SESSION_ITER_ERROR;
         } while (true);   // while reading a message
     }
+    return true;
 }

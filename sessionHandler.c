@@ -1,6 +1,7 @@
 //
 // Created by mike on 3/9/17.
 //
+#include <stdlib.h>
 #if !defined(__APPLE__)
 #include <malloc.h>
 #endif
